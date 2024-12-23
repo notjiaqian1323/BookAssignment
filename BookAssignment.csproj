@@ -191,11 +191,9 @@
     <Content Include="PageHeader.ascx" />
     <Content Include="Search.aspx" />
     <Content Include="ProfileManagement.aspx" />
-    <Content Include="WebForm6.aspx" />
     <Content Include="PageFooter.ascx" />
     <Content Include="Reader.aspx" />
     <Content Include="Flipper.aspx" />
-    <Content Include="WebForm9.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminLogin.aspx.cs">
@@ -325,13 +323,6 @@
     <Compile Include="ProfileManagement.aspx.designer.cs">
       <DependentUpon>ProfileManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebForm6.aspx.cs">
-      <DependentUpon>WebForm6.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm6.aspx.designer.cs">
-      <DependentUpon>WebForm6.aspx</DependentUpon>
-    </Compile>
     <Compile Include="PageFooter.ascx.cs">
       <DependentUpon>PageFooter.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -352,13 +343,6 @@
     </Compile>
     <Compile Include="Flipper.aspx.designer.cs">
       <DependentUpon>Flipper.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm9.aspx.cs">
-      <DependentUpon>WebForm9.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm9.aspx.designer.cs">
-      <DependentUpon>WebForm9.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
