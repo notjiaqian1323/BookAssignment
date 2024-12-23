@@ -1,0 +1,412 @@
+﻿body {
+    background-color: black;
+    margin: 0;
+}
+
+form {
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif; /* or 'Poppins' */
+    color: #333333;
+    max-width:90%;
+    margin: 0 auto;
+    padding: 0 100px;
+    padding-top: 10px;
+    background-color: #fff;
+}
+
+.toptitle a {
+    font-weight:bolder;
+    font-size:36px;
+    color: rgb(0,0,0);
+}
+
+.search {
+    padding:10px;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 50px;
+    display:flex;
+    justify-content:left;
+    width: 500px;
+    background-color:#fff;
+}
+
+.top {
+    display:flex;
+    justify-content:space-between;
+    align-content:center;
+    gap: 6px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.search-box {
+    border:0;
+    outline:none;
+    width: 100%;
+}
+
+.search-icon {
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    filter: brightness(10%);
+}
+
+.profile-icon {
+    margin-right: 5px;
+    width: 30px;
+    filter: brightness(40%);
+}
+
+.login {
+    display:flex;
+    justify-content:center;
+    font-size: 15px;
+    border:1px solid rgba(0,0,0,0.6);
+    border-radius:50px;
+    width: 150px;
+    background-color:#fff;
+    padding: 8px;
+}
+
+.profile-txt {
+    display: flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.login-signup {
+    font-size:10px;
+}
+
+.cart {
+    width: 180px;
+    display: flex;
+    align-items: center; /* Ensures vertical alignment */
+    justify-content: center; /* Ensures horizontal alignment if needed */
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 50px;
+    padding: 5px;
+    gap: 8px; /* Adds spacing between elements */
+    box-sizing: border-box; /* Ensures padding doesn't affect layout */
+    background-color: #fff;
+}
+
+.cart-icon {
+    width: 30px;
+    height: auto; /* Maintains aspect ratio of the image */
+    filter: brightness(30%);
+}
+
+.cart-price, .cart-qty {
+    font-weight: bolder;
+    line-height: 1; /* Normalizes vertical alignment */
+    display: inline-flex; /* Ensures better alignment for inline content */
+    align-items: center; /* Centers the text within the span */
+    margin: 0; /* Removes any default margin from the labels */
+    padding: 0; /* Removes any extra padding */
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    gap: 20px; /* Space between navigation items */
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    list-style: none;
+}
+
+    .nav-bar .nav-item {
+        position: relative; /* Needed for dropdown positioning */
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 5px 10px;
+        list-style: none;
+    }
+
+        .nav-bar .nav-item:hover {
+            color: #007bff; /* Change color on hover */
+        }
+
+        .nav-bar .nav-item .nav-down {
+            width: 16px;
+            height: 16px;
+            margin-left: 5px;
+            filter: brightness(40%);
+        }
+
+    /* Dropdown Menu Styling */
+    .nav-bar .dropdown .dropdown-menu {
+        position: absolute; /* Position the dropdown relative to the parent */
+        top: 100%; /* Position below the parent */
+        left: 0;
+        min-width: 200px; /* Set a minimum width */
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: none; /* Hidden by default */
+        padding: 10px 0;
+        z-index: 1000;
+    }
+
+    .nav-bar .dropdown:hover .dropdown-menu {
+        display: block; /* Show on hover */
+    }
+
+    .nav-bar .dropdown-menu li {
+        padding: 8px 20px;
+        white-space: nowrap; /* Prevents text wrapping */
+    }
+
+        .nav-bar .dropdown-menu li:hover {
+            background-color: #f8f9fa;
+        }
+
+        .nav-bar .dropdown-menu li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+            .nav-bar .dropdown-menu li a:hover {
+                color: #007bff;
+            }
+
+    /* Additional Styling for Consistency */
+    .nav-bar .nav-item span {
+        margin-right: 5px;
+    }
+
+
+
+.adsBoard {
+    position: relative;
+    width: 100%; /* Full width of the parent container */
+    max-width: 100vw; /* Ensure it doesn't exceed the viewport width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 300px; /* Fixed height for the slider */
+    margin: auto;
+    overflow: hidden;/* Ensures slides outside the view are hidden */
+    border-radius:10px;
+    margin-bottom: 20px;
+}
+
+.slides {
+    position:absolute;
+    top:0;
+    left:0;
+    display: flex; /* Arrange slides horizontally */
+    height: 100%; /* Matches the height of the .adsBoard */
+    width: 100%; /* Makes the slides container full-width */
+    transition: all 1s;/*Smooth slide transition */
+}
+
+.slide {
+    flex: 0 0 100%; /* Each slide takes up 100% of the width */
+    height: 100%; /* Matches the height of the .adsBoard */
+}
+
+.slides .slide img {
+    width: 100%; /* Image fills the slide container */
+    height: 100%; /* Image height matches the slide */
+    object-fit: cover; /* Ensures image covers the entire area */
+    display: block; /* Removes any extra space below the image */
+}
+
+span.prev, span.next{
+    position: absolute;
+    top: 50%;
+    transform:translateY(-50%);
+    padding: 14px;
+    color: #eee;
+    font-size: 24px;
+    font-weight:bold;
+    border-radius:3px;
+    user-select:none;
+    cursor:pointer;
+    z-index: 1;
+}
+
+span.prev {
+    left: 20px;
+}
+
+span.next {
+    right: 20px;
+}
+
+    span.prev:hover, span.next:hover {
+        background-color: #eee5;
+    }
+
+.dots {
+    position: absolute;
+    bottom: 10px;
+    color: #fff;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    transition: all 0.5s;
+}
+
+    .dots li {
+        list-style: none;
+        width: 10px;
+        height: 10px;
+        background-color: #fff8;
+        margin: 20px;
+        border-radius: 20px;
+    }
+
+        .dots li.active {
+            width: 30px;
+            background-color: #fff;
+        }
+
+
+.section {
+    width: 100%;
+    display:flex;
+    flex-direction:column;
+    margin-bottom:100px;
+}
+
+    .section .sect-title {
+        font-size: 25px;
+        font-weight:bold;
+        margin-bottom: 10px;
+    }
+
+    .section .sect-desc {
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+
+    .section .books {
+        display: flex;
+        justify-content:space-between;
+        gap: 30px;
+        overflow:auto;
+    }
+
+        .section .books .book {
+            display: flex;
+            flex-direction: column; /* Align image and text vertically */
+            align-items: center; /* Center align text under the image */
+            text-align: center; /* Center text alignment */
+        }
+
+        .section .books .book img {
+            width: 280px;
+            height: 430px; /* Consistent height for all images */
+            object-fit: cover; /* Ensures images maintain aspect ratio */
+            border: 1px solid #ddd; /* Optional: Light border for neatness */
+            border-radius: 5px; /* Optional: Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+        }
+
+            .section .books .book .book-title {
+                width: 280px;
+                font-size:20px;
+                margin-top: 10px;
+                margin-bottom: 5px;
+                overflow:auto;
+            }
+
+            .section .books .book .price-lbl {
+                font-weight:bolder;
+                font-size:20px;
+            }
+
+
+.trending-section, .fiction-section, .nfiction-section, .promo-section {
+    margin-top: 30px;    
+}
+    .foot-container {
+        display: flex;
+        justify-content: center;
+    }
+
+
+footer {
+    padding-top: 50px;
+}
+
+h3 {
+    font-size: 28px;
+    margin-bottom:15px;
+    text-align:center;
+}
+
+.foot-content p {
+    width:190px;
+    margin:auto;
+    padding:7px;
+}
+
+.foot-content ul {
+    text-align:center;
+}
+
+.list {
+    padding:0;
+}
+
+    .list li {
+        width: auto;
+        text-align:center;
+        list-style-type:none;
+        padding:7px;
+        position:relative;
+    }
+
+        .list li::before {
+            content:'';
+            position:absolute;
+            transform:translate(-50%, -50%);
+            left: 50%;
+            top: 100%;
+            width: 0;
+            height: 2px;
+            transition-duration: .5s;
+        }
+
+        .list li:hover::before {
+            width: 70px;
+        }
+
+.social-icons {
+    text-align:center;
+    padding: 0;
+}
+
+    .social-icons li {
+        display:inline-block;
+        text-align:center;
+        padding:5px;
+    }
+
+* {
+    text-decoration: none;
+}
+
+.bottom-bar {
+    text-align:center;
+    padding: 10px 0;
+    margin-top: 50px; 
+}
+
+    .bottom-bar p {
+        margin: 0;
+        font-size: 16px;
+    }
+

@@ -1,0 +1,130 @@
+﻿
+
+#card-area {
+    padding: 20px 0;
+}
+
+.box-area {
+    display: grid;
+    grid-auto-flow: column;
+    scroll-behavior: auto;
+    overflow-y: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: mandatory;
+    scrollbar-width: none;
+    grid-gap: 40px;
+    margin-top: 20px;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.box {
+    width: 250px;
+    scroll-snap-align: start;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .box img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        display: block;
+        transition: transform 0.5s;
+    }
+
+.overlay {
+    height: 0;
+    width: 100%;
+    background: linear-gradient(transparent, #1c1c1c 70%);
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 14px;
+    transition: height 0.5s;
+
+}
+
+    .overlay h3 {
+        font-weight: 500;
+        color: #fff;
+        margin-bottom: 5px;
+        margin-top: 80%;
+        font-family: 'Times New Roman', Times, serif;
+        letter-spacing: 2px;
+    }
+
+    .overlay a {
+        margin-top: 10px;
+        color: #262626;
+        font-family: 'Times New Roman', Times, serif;
+        text-decoration: none;
+        font-size: 14px;
+        background: #fff;
+        border-radius: 5px;
+        text-align: center;
+        padding: 5px 15px;
+    }
+
+.discover {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 14px;
+    transition: height 0.5s;
+}
+
+    .discover h3 {
+        font-weight: 500;
+        color: #fff;
+        margin-bottom: 5px;
+        margin: 50%;
+        font-family: 'Times New Roman', Times, serif;
+        letter-spacing: 2px;
+    }
+
+.box:hover img {
+    transform: scale(1.05);
+}
+
+.box:hover .overlay {
+    height: 100%;
+}
+
+.adsBoard {
+    height: 100px;
+}
+
+.bookshelf-header {
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+    .bookshelf-header img {
+        width: 18px;
+        height: 18px;
+        color: black;
+    }
+
+    .bookshelf-header h3 {
+        font-size: 21px;
+    }
+
