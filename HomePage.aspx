@@ -56,7 +56,8 @@
                         <div class="book">
                             <img src='<%# Eval("ImageUrl") %>' />
                             <span class="book-title"><%# Eval("Title") %></span>
-                            <span class="price-lbl">RM<%# Eval("Price", "{0:0.00}") %></span></div>
+                            <span class="price-lbl">RM<%# Eval("Price", "{0:0.00}") %></span>
+                        </div>
                     </ItemTemplate>
                 </asp:Repeater>
             </div>

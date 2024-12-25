@@ -12,11 +12,15 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server"  ShowStartingNode="false" />
-            <Page:Header ID="pgHeader" runat="server" />
+            <asp:SiteMapDataSource 
+            ID="SiteMapDataSource1" 
+            runat="server" 
+            ShowStartingNode="false" 
+            SiteMapProvider="XmlSiteMapProvider" />
+
 
             <div class="breadcrumb-container">
-                <asp:SiteMapPath ID="siteMapPath" runat="server" DataSourceID="siteMapDataSource" PathSeparator=">">
+                <asp:SiteMapPath ID="siteMapPath" runat="server" DataSourceID="SiteMapDataSource1" PathSeparator=">">
                     <CurrentNodeStyle CssClass="breadcrumb-current" />
                     <NodeStyle CssClass="breadcrumb-node" />
                     <RootNodeStyle CssClass="breadcrumb-root" />

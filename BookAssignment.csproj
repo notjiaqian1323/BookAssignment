@@ -356,6 +356,9 @@
     </None>
     <Content Include="Ebook.sitemap" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Chapters\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
