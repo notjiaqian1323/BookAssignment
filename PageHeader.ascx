@@ -50,6 +50,7 @@
                     <li><a href="ProfileManagement.aspx">Edit Profile</a></li>
                     <li><a href="ProfileManagement.aspx">Orders</a></li>
                     <li><a href="ProfileManagement.aspx">Account Security</a></li>
+                    <li><a href="Bookshelf.aspx">My Books</a></li>
                 </ul>
             </ul>
         </div>
