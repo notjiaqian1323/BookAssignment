@@ -32,27 +32,16 @@
         </div>
 
         <div class="flipbook">
-            <div class="hard">Comedy Book 1 <small>~ HankTheTank</small></div>
+            <div class="hard"><asp:Label ID="lblTitle" runat="server"></asp:Label> <small>~ HankTheTank</small></div>
             <div class="hard"></div>
             <div>
                 <small>Lets look at some Amazing Pokemon</small>
                 <small>Gotta catch'em all</small>
             </div>
-            <div>
-                <small>Charmander</small>
-            </div>
-            <div>
-                <small>Charmander</small>
-            </div>
-            <div>
-                <small>Charmander</small>
-            </div>
-            <div>
-                <small>Charmander</small>
-            </div>
-            <div>
-                <small>Charmander</small>
-            </div>
+            
+            //Dynamic book content loading from ascx
+            <asp:PlaceHolder ID="pagePlaceholder" runat="server"></asp:PlaceHolder>
+
             <div class="hard"></div>
             <div class="hard">Thank you <small>~ HankTheTank</small></div>
         </div>

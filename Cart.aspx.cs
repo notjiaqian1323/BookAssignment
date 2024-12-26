@@ -22,7 +22,7 @@ namespace OnlineBookstore
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = "SELECT ImageUrl, Title, Price FROM Books";
+                string query = "SELECT BookId, ImageUrl, Title, Price FROM Books";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     con.Open();
@@ -70,40 +70,47 @@ namespace OnlineBookstore
 
         protected void btnCheckout_Click(object sender, EventArgs e)
         {
-
+            // Create a DataTable to store selected cart items
             DataTable selectedItems = new DataTable();
+            selectedItems.Columns.Add("BookID", typeof(int));
             selectedItems.Columns.Add("ImageUrl", typeof(string));
             selectedItems.Columns.Add("Title", typeof(string));
             selectedItems.Columns.Add("Price", typeof(decimal));
 
-
+            // Iterate through GridView rows
             foreach (GridViewRow row in gvCart.Rows)
             {
                 CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
                 if (chkSelect != null && chkSelect.Checked)
                 {
+                    // Get BookID
+                    HiddenField hfBookID = (HiddenField)row.FindControl("hfBookID");
+                    int bookId = hfBookID != null ? Convert.ToInt32(hfBookID.Value) : 0;
 
+                    // Get ImageUrl
                     Image imgBook = (Image)row.FindControl("imgBook");
                     string imageUrl = imgBook != null ? imgBook.ImageUrl : "";
 
+                    // Get Title
+                    Label lblTitle = (Label)row.FindControl("lblTitle");
+                    string title = lblTitle != null ? lblTitle.Text : "";
 
-                    string title = row.Cells[2].Text;
-
-
+                    // Get Price
                     Label lblPrice = (Label)row.FindControl("lblPrice");
-                    decimal price = decimal.Parse(lblPrice.Text.Replace("RM", "").Trim());
+                    decimal price = lblPrice != null ? decimal.Parse(lblPrice.Text.Replace("RM", "").Trim()) : 0;
 
-
-                    selectedItems.Rows.Add(imageUrl, title, price);
+                    // Add row to the DataTable
+                    selectedItems.Rows.Add(bookId, imageUrl, title, price);
                 }
             }
 
-
+            // Store selected items in Session
             Session["SelectedItems"] = selectedItems;
 
-
+            // Redirect to Checkout page
             Response.Redirect("Checkout.aspx");
         }
+
 
         protected void chkSelect_CheckedChanged(object sender, EventArgs e)
         {

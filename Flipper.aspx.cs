@@ -11,7 +11,14 @@ namespace BookAssignment
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                LoadBookContent();
+            }
+        }
 
+        private void LoadBookContent() {
+            string bookId = Request.QueryString["bookId"];
         }
     }
 }

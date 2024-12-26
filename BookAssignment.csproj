@@ -138,24 +138,7 @@
     <Content Include="App_Data\Database1_log.ldf" />
     <Content Include="BookCatalog.aspx" />
     <Content Include="Cart.aspx" />
-    <Content Include="Chapters\bk1chpt3.ascx" />
-    <Content Include="Chapters\bk1chpt2.ascx" />
-    <Content Include="Chapters\bk1chpt1.ascx" />
     <Content Include="Checkout.aspx" />
-    <Content Include="ChptCSS\bk1.css" />
-    <Content Include="ChptCSS\bk10.css" />
-    <Content Include="ChptCSS\bk11.css" />
-    <Content Include="ChptCSS\bk12.css" />
-    <Content Include="ChptCSS\bk13.css" />
-    <Content Include="ChptCSS\bk14.css" />
-    <Content Include="ChptCSS\bk9.css" />
-    <Content Include="ChptCSS\bk8.css" />
-    <Content Include="ChptCSS\bk7.css" />
-    <Content Include="ChptCSS\bk6.css" />
-    <Content Include="ChptCSS\bk5.css" />
-    <Content Include="ChptCSS\bk4.css" />
-    <Content Include="ChptCSS\bk3.css" />
-    <Content Include="ChptCSS\bk2.css" />
     <Content Include="CustomerLogin.aspx" />
     <Content Include="Database1.mdf" />
     <Content Include="Database1_log.ldf" />
@@ -216,6 +199,7 @@
     <Content Include="PageFooter.ascx" />
     <Content Include="Reader.aspx" />
     <Content Include="Flipper.aspx" />
+    <Content Include="BookPageContent.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminLogin.aspx.cs">
@@ -266,27 +250,6 @@
     </Compile>
     <Compile Include="Cart.aspx.designer.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Chapters\bk1chpt3.ascx.cs">
-      <DependentUpon>bk1chpt3.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Chapters\bk1chpt3.ascx.designer.cs">
-      <DependentUpon>bk1chpt3.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Chapters\bk1chpt2.ascx.cs">
-      <DependentUpon>bk1chpt2.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Chapters\bk1chpt2.ascx.designer.cs">
-      <DependentUpon>bk1chpt2.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Chapters\bk1chpt1.ascx.cs">
-      <DependentUpon>bk1chpt1.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Chapters\bk1chpt1.ascx.designer.cs">
-      <DependentUpon>bk1chpt1.ascx</DependentUpon>
     </Compile>
     <Compile Include="Checkout.aspx.cs">
       <DependentUpon>Checkout.aspx</DependentUpon>
@@ -386,6 +349,13 @@
     </Compile>
     <Compile Include="Flipper.aspx.designer.cs">
       <DependentUpon>Flipper.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BookPageContent.ascx.cs">
+      <DependentUpon>BookPageContent.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BookPageContent.ascx.designer.cs">
+      <DependentUpon>BookPageContent.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

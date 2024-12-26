@@ -84,6 +84,12 @@
                     </ItemTemplate>
                 </asp:TemplateField>
 
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:HiddenField ID="hfBookID" runat="server" Value='<%# Eval("BookID") %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+
        
                 <asp:TemplateField>
                     <ItemTemplate>
@@ -94,7 +100,7 @@
         
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <%# Eval("Title") %>
+                         <asp:Label ID="lblTitle" runat="server" Text='<%# Eval("Title") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
 
