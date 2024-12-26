@@ -16,6 +16,13 @@ body {
     background: #f1c40f;
 }
 
+
+div.book-header {
+    display: flex;
+    width: 100%;
+    background-color: black;
+}
+
 .flipbook {
     width: 1000px;
     height: 600px;

@@ -31,13 +31,16 @@ form {
 }
 
 .top {
-    display:flex;
-    justify-content:space-between;
-    align-content:center;
-    gap: 6px;
+    display: flex;
+    justify-content: space-between; /* Space elements evenly with minimal gaps */
+    align-items: center; /* Vertically align items in the center */
+    gap: 20px; /* Set a consistent gap between elements */
     width: 100%;
     margin-top: 10px;
+    padding: 0 20px; /* Add padding to ensure elements don't touch the screen edges */
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
+
 
 .search-box {
     border:0;

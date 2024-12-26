@@ -16,10 +16,12 @@
     margin-top: 20px;
     white-space: nowrap;
     overflow-x: auto;
+    width: fit-content;
 }
 
 .box {
     width: 250px;
+    height: 330px;
     scroll-snap-align: start;
     border-radius: 10px;
     position: relative;
@@ -100,6 +102,22 @@
         letter-spacing: 2px;
     }
 
+        /* Styling for the discover link */
+        .discover h3 a.discover-link {
+            text-decoration: none; /* Remove underline */
+            color: inherit; /* Inherit the color from the parent */
+            font-size: 28px; /* Adjust font size if needed */
+            font-weight: bold; /* Make the text bold */
+            transition: color 0.3s ease-in-out;
+        }
+
+            /* Hover effect for the link */
+            .discover h3 a.discover-link:hover {
+                color: #ff4500; /* Change color on hover */
+                text-decoration: underline; /* Optional: underline on hover */
+            }
+
+
 .box:hover img {
     transform: scale(1.05);
 }
@@ -128,3 +146,7 @@
         font-size: 21px;
     }
 
+
+.book-header {
+    
+}

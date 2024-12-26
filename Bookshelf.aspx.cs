@@ -33,23 +33,23 @@ namespace BookAssignment
                     string title = row["Title"].ToString();
 
                     sb.AppendFormat(@"
-                <div class='box'>
-                    <img src='{0}' />
-                    <div class='overlay'>
-                        <h3 class='title'>{1}</h3>
-                        <a href='Flipper.aspx'>Read Now</a>
-                    </div>
-                </div>", imageUrl, title);
+            <div class='box'>
+                <img src='{0}' alt='{1}' />
+                <div class='overlay'>
+                    <h3 class='title'>{1}</h3>
+                    <a href='Flipper.aspx'>Read Now</a>
+                </div>
+            </div>", imageUrl, title);
                 }
 
                 // Add the Discover More box at the end
                 sb.Append(@"
-            <div class='box'>
-                <img src='Images/light-gray.jpg'/>
-                <div class='discover'>
-                    <h3>Discover more</h3>
-                </div>
-            </div>");
+        <div class='box'>
+            <img src='Images/light-gray.jpg' alt='Discover More' />
+            <div class='discover'>
+                <h3><a href='Homepage.aspx' class='discover-link'>Discover more</a></h3>
+            </div>
+        </div>");
 
                 // Render into a Literal Control on your page
                 booksContainer.InnerHtml = sb.ToString();
@@ -58,13 +58,20 @@ namespace BookAssignment
             {
                 // Handle case where no items are found in the session
                 booksContainer.InnerHtml = @"
-            <div class='box'>
-                <img src='Images/light-gray.jpg'/>
-                <div class='discover'>
-                    <h3>No Books Found</h3>
-                </div>
-            </div>";
+        <div class='box'>
+            <img src='Images/light-gray.jpg' alt='No Books' />
+            <div class='discover'>
+                <h3>No Books Found</h3>
+            </div>
+        </div>
+        <div class='box'>
+            <img src='Images/light-gray.jpg' alt='Discover More' />
+            <div class='discover'>
+                <h3><a href='Homepage.aspx' class='discover-link'>Discover more</a></h3>
+            </div>
+        </div>";
             }
         }
+
     }
 }

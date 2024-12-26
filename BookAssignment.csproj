@@ -145,9 +145,14 @@
     <Content Include="Images\arrow-back.png" />
     <Content Include="Images\arrow-next.png" />
     <Content Include="Images\arrow-right.png" />
+    <Content Include="Images\dark-mode.png" />
     <Content Include="Images\light-gray.jpg" />
+    <Content Include="Images\light-mode.png" />
+    <Content Include="Images\menu-icon.png" />
     <Content Include="Images\more.png" />
     <Content Include="Images\right-arrow.png" />
+    <Content Include="Images\zoom-in.png" />
+    <Content Include="Images\zoom-out.png" />
     <Content Include="jquery.js" />
     <Content Include="Reader.js" />
     <Content Include="Register.aspx" />

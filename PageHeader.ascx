@@ -44,10 +44,12 @@
                 <img src="Images/nav-down.png" class="nav-down" />
             </ul>
             <ul class="nav-item dropdown">
-                <span>Profile Management</span>
+                <span>My Account</span>
                 <img src="Images/nav-down.png" class="nav-down" />
                 <ul class="dropdown-menu">
-                    <li><a href="ProfileManagement.aspx">Manage Account</a></li>
+                    <li><a href="ProfileManagement.aspx">Edit Profile</a></li>
+                    <li><a href="ProfileManagement.aspx">Orders</a></li>
+                    <li><a href="ProfileManagement.aspx">Account Security</a></li>
                 </ul>
             </ul>
         </div>
