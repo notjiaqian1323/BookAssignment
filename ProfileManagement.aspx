@@ -8,10 +8,13 @@
     <title>Profile Management</title>
     <link rel="stylesheet" type="text/css" href="Style.css" />
     <link rel="stylesheet" type="text/css" href="Profile.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
+            <Page:Header ID="pgHead" runat="server"/>
+
             <asp:SiteMapDataSource 
             ID="SiteMapDataSource1" 
             runat="server" 
@@ -19,13 +22,44 @@
             SiteMapProvider="XmlSiteMapProvider" />
 
 
-            <div class="breadcrumb-container">
+            <div class="whole-container">
+                            <div class="breadcrumb-container">
                 <asp:SiteMapPath ID="siteMapPath" runat="server" DataSourceID="SiteMapDataSource1" PathSeparator=">">
                     <CurrentNodeStyle CssClass="breadcrumb-current" />
                     <NodeStyle CssClass="breadcrumb-node" />
                     <RootNodeStyle CssClass="breadcrumb-root" />
                 </asp:SiteMapPath>
             </div>
+
+
+            <div class="profile-container">
+                <aside id="sidebar">
+                    <div class="sidebar-title">
+                        <span class="material-icons" onclick="closeSidebar()">close</span>
+                    </div>
+
+                    <ul class="sidebar-list">
+                        <li class="sidebar-list-item">
+                            <span class="material-icons">dashboard</span> <a href="Dashboard.aspx">Dashboard</a>
+                        </li>
+                        <li class="sidebar-list-item">
+                            <span class="material-icons">inventory_2</span> <a href="Customers.aspx">Customers</a>
+                        </li>
+                        <li class="sidebar-list-item">
+                            <span class="material-icons">group</span> <a href="Products.aspx">Products</a>
+                        </li>
+                        <li class="sidebar-list-item">
+                            <span class="material-icons">poll</span> <a href="Reports.aspx">Reports</a>
+                        </li>                    
+                    </ul>
+                </aside>
+
+                <div class="main-container">
+                    <h1 class="main-title">My details</h1>
+                </div>
+            </div>
+            </div>
+
 
 
             <h1>Profile Management</h1>

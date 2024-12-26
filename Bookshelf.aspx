@@ -49,42 +49,7 @@
 
         <div id="card-area">
             <div class="wrapper">
-                <div class="box-area">
-                    <div class="box">
-                        <img src="Images/comedy1.jpg"/>
-                        <div class="overlay">
-                            <h3 class="title">Comedy Book 1</h3>
-                            <a href="Flipper.aspx">Read Now</a>
-                        </div>
-                    </div>
-                    <div class="box">
-                        <img src="Images/comedy1.jpg"/>
-                        <div class="overlay">
-                            <h3 class="title">Comedy Book 1</h3>
-                            <a href="Flipper.aspx">Read Now</a>
-                        </div>
-                    </div>
-                    <div class="box">
-                        <img src="Images/comedy1.jpg"/>
-                        <div class="overlay">
-                            <h3 class="title">Comedy Book 1</h3>
-                            <a href="Flipper.aspx">Read Now</a>
-                        </div>
-                    </div>
-                    <div class="box">
-                        <img src="Images/comedy1.jpg"/>
-                        <div class="overlay">
-                            <h3 class="title">Comedy Book 1</h3>
-                            <a href="Flipper.aspx">Read Now</a>
-                        </div>
-                    </div>
-                    <div class="box">
-                        <img src="Images/light-gray.jpg"/>
-                        <div class="discover">
-                            <h3>Discover more</h3>
-                        </div>
-                    </div>
-                </div>
+                <div class="box-area" id="booksContainer" runat="server"></div>
             </div>
         </div>
 

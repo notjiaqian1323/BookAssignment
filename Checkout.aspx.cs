@@ -40,7 +40,6 @@ namespace OnlineBookStore
             }
             else
             {
-
                 dt.Rows.Add(1, "Book 1", 100);
                 dt.Rows.Add(2, "Book 2", 120);
             }

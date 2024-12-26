@@ -115,7 +115,6 @@ form {
     gap: 20px; /* Space between navigation items */
     padding: 10px 20px;
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     list-style: none;
 }
 

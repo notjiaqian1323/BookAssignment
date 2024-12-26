@@ -24,6 +24,15 @@ namespace BookAssignment
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// pgHead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::BookAssignment.WebUserControl1 pgHead;
+
+        /// <summary>
         /// SiteMapDataSource1 control.
         /// </summary>
         /// <remarks>
