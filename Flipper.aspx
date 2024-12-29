@@ -39,7 +39,6 @@
                 <small>Gotta catch'em all</small>
             </div>
             
-            //Dynamic book content loading from ascx
             <asp:PlaceHolder ID="pagePlaceholder" runat="server"></asp:PlaceHolder>
 
             <div class="hard"></div>

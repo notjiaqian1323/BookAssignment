@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
+using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace OnlineBookstore
@@ -13,18 +17,17 @@ namespace OnlineBookstore
             if (!IsPostBack)
             {
                 bookContainer.Controls.Clear();
+                // Load all books initially
+                var books = GetBooksByGenre("");
+                RenderBooks(books);
             }
         }
 
         protected void ddlGenres_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedGenre = ddlGenres.SelectedItem.Value;
-
-            if (!string.IsNullOrEmpty(selectedGenre))
-            {
-                var books = GetBooksByGenre(selectedGenre);
-                RenderBooks(books);
-            }
+            var books = GetBooksByGenre(selectedGenre);
+            RenderBooks(books);
         }
 
         private List<Book> GetBooksByGenre(string genre)
@@ -34,9 +37,22 @@ namespace OnlineBookstore
 
             using (var connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM Books WHERE Genre = @Genre";
-                var command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Genre", genre);
+                string query;
+                SqlCommand command;
+
+                if (string.IsNullOrEmpty(genre))
+                {
+                    // If no genre is selected, get all books
+                    query = "SELECT * FROM Books";
+                    command = new SqlCommand(query, connection);
+                }
+                else
+                {
+                    // Get books of selected genre
+                    query = "SELECT * FROM Books WHERE Genre = @Genre";
+                    command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Genre", genre);
+                }
 
                 connection.Open();
                 using (var reader = command.ExecuteReader())
@@ -65,11 +81,11 @@ namespace OnlineBookstore
             {
                 var bookHtml = new StringBuilder();
                 bookHtml.Append("<div class='book-card'>");
-                bookHtml.AppendFormat("<img src='{0}' alt='{1}' />", book.ImageUrl, book.Title);
-                bookHtml.AppendFormat("<h3>{0}</h3>", book.Title);
+                bookHtml.AppendFormat("<a href='BookDetails.aspx?BookId={0}'><img src='{1}' alt='{2}' /></a>", book.BookId, book.ImageUrl, book.Title);
+                bookHtml.AppendFormat("<a href='BookDetails.aspx?BookId={0}'><h3>{1}</h3></a>", book.BookId, book.Title);
                 bookHtml.AppendFormat("<p>{0}</p>", book.Description);
-                bookHtml.AppendFormat("<p>Price: ${0}</p>", book.Price);
-                bookHtml.AppendFormat("<button class='btn' onclick=\"AddToCart('{0}')\">Add to Cart</button>", book.BookId);
+                bookHtml.AppendFormat("<p>Price: RM {0:F2}</p>", book.Price);
+                bookHtml.AppendFormat("<button type='button' class='btn' onclick='addToCart({0}); return false;'>Add to Cart</button>", book.BookId);
                 bookHtml.Append("</div>");
 
                 bookContainer.Controls.Add(new Literal { Text = bookHtml.ToString() });
@@ -77,30 +93,74 @@ namespace OnlineBookstore
         }
 
 
-        [System.Web.Services.WebMethod]
-        public static void AddToCart(int bookId)
+        [WebMethod]
+        [ScriptMethod(UseHttpGet = false)]
+        public static string AddToCart(int bookId)
         {
             string message = "Product added to cart successfully!";
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
 
             try
             {
-                // Get the current user ID from session (replace with actual session variable or authentication system)
-                // Replace this with the actual user ID from session or authentication
-
                 using (var connection = new SqlConnection(connectionString))
                 {
-                string query = @"INSERT INTO CartItem (BookId, DateAdded, Status) VALUES (@BookId, @DateAdded, @Status)";
+                    // Get book information from Books table
+                    string getBookQuery = @"
+                        SELECT Title, Genre, Description, ImageUrl, Price 
+                        FROM Books 
+                        WHERE BookId = @BookId";
 
-                    using (var command = new SqlCommand(query, connection))
+                    connection.Open();
+                    var command = new SqlCommand(getBookQuery, connection);
+                    command.Parameters.AddWithValue("@BookId", bookId);
+
+                    using (var reader = command.ExecuteReader())
                     {
-                        // Add parameters to avoid SQL injection
-                        command.Parameters.AddWithValue("@BookId", bookId);
-                        command.Parameters.AddWithValue("@DateAdded", DateTime.Now);
-                        command.Parameters.AddWithValue("@Status", "Pending"); // Default status is "Pending"
+                        if (reader.Read())
+                        {
+                            string title = reader["Title"].ToString();
+                            string genre = reader["Genre"].ToString();
+                            string description = reader["Description"].ToString();
+                            string imageUrl = reader["ImageUrl"].ToString();
+                            decimal price = Convert.ToDecimal(reader["Price"]);
+                            int userId;
+                            if (HttpContext.Current.Session["UserId"] == null || !int.TryParse(HttpContext.Current.Session["UserId"].ToString(), out userId))
+                            {
+                                return "Please log in first and then add to the shopping cart.";
+                            }
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
+                            reader.Close();
+
+                            // Check if book already exists in cart
+                            string checkQuery = "SELECT COUNT(*) FROM Cart WHERE BookId = @BookId";
+                            command = new SqlCommand(checkQuery, connection);
+                            command.Parameters.AddWithValue("@BookId", bookId);
+
+                            int exists = (int)command.ExecuteScalar();
+
+                            if (exists == 0)
+                            {
+                                // Insert new record if book doesn't exist in cart
+                                string insertQuery = @"
+                                    INSERT INTO Cart (BookId, Title, Genre, Description, ImageUrl, Price, UserId) 
+                                    VALUES (@BookId, @Title, @Genre, @Description, @ImageUrl, @Price, @UserId)";
+
+                                command = new SqlCommand(insertQuery, connection);
+                                command.Parameters.AddWithValue("@BookId", bookId);
+                                command.Parameters.AddWithValue("@Title", title);
+                                command.Parameters.AddWithValue("@Genre", genre);
+                                command.Parameters.AddWithValue("@Description", description);
+                                command.Parameters.AddWithValue("@ImageUrl", imageUrl);
+                                command.Parameters.AddWithValue("@Price", price);
+                                command.Parameters.AddWithValue("@UserId", userId); // Replace with actual user ID from session
+
+                                command.ExecuteNonQuery();
+                            }
+                            else
+                            {
+                                message = "This book is already in your cart!";
+                            }
+                        }
                     }
                 }
             }
@@ -108,8 +168,9 @@ namespace OnlineBookstore
             {
                 message = "Error: " + ex.Message;
             }
-        }
 
+            return message;
+        }
     }
 
     public class Book
@@ -118,8 +179,7 @@ namespace OnlineBookstore
         public string Title { get; set; }
         public string Genre { get; set; }
         public string Description { get; set; }
-        public string ImageUrl { get ; set; }
+        public string ImageUrl { get; set; }
         public decimal Price { get; set; }
     }
-
 }

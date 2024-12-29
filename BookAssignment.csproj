@@ -137,7 +137,11 @@
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf" />
     <Content Include="BookCatalog.aspx" />
+    <Content Include="BookCatalog.css" />
+    <Content Include="BookDetails.aspx" />
+    <Content Include="BookDetails.css" />
     <Content Include="Cart.aspx" />
+    <Content Include="ChangePassword.aspx" />
     <Content Include="Checkout.aspx" />
     <Content Include="CustomerLogin.aspx" />
     <Content Include="Database1.mdf" />
@@ -189,6 +193,7 @@
     <Content Include="Flip.css" />
     <Content Include="Profile.css" />
     <Content Include="turn.js" />
+    <Content Include="UpdateInfo.aspx" />
     <Content Include="Web.config" />
     <Content Include="HomePage.aspx" />
     <Content Include="Bookshelf.aspx" />
@@ -244,12 +249,26 @@
     <Compile Include="BookCatalog.aspx.designer.cs">
       <DependentUpon>BookCatalog.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BookDetails.aspx.cs">
+      <DependentUpon>BookDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BookDetails.aspx.designer.cs">
+      <DependentUpon>BookDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cart.aspx.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cart.aspx.designer.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Checkout.aspx.cs">
       <DependentUpon>Checkout.aspx</DependentUpon>
@@ -356,6 +375,13 @@
     </Compile>
     <Compile Include="BookPageContent.ascx.designer.cs">
       <DependentUpon>BookPageContent.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateInfo.aspx.cs">
+      <DependentUpon>UpdateInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateInfo.aspx.designer.cs">
+      <DependentUpon>UpdateInfo.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
