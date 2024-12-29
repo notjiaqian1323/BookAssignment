@@ -22,7 +22,7 @@ namespace BookAssignment.Admin
 
         private void BindUsers()
         {
-            string query = "SELECT Id, Name, Email, Role FROM Users";
+            string query = "SELECT Id, Name, Email, Role FROM User";
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -116,8 +116,25 @@ namespace BookAssignment.Admin
             BindUsers();
         }
 
+        protected void lvUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
 
 
+        protected void btnViewDetails_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int userId = Convert.ToInt32(btn.CommandArgument);
 
+            // Fetch user details from database
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"SELECT Name, Email, Role, Gender, Age FROM User WHERE Id = @Id";
+
+            }
+        }
     }
 }

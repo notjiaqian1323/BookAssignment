@@ -44,29 +44,20 @@
                                     <span class="user-name"><%# Eval("Name") %></span>
                                     <span class="user-email"><%# Eval("Email") %></span>
                                     <span class="user-role"><%# Eval("Role") %></span>
-                                </div>
-                                <div class="user-actions">
-                                    <asp:LinkButton ID="btnEdit" runat="server" CommandName="Edit" CssClass="btn-edit" Text="Edit" />
-                                    <asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" CssClass="btn-delete" Text="Delete" />
+                                    <asp:Button ID="btnViewDetails" runat="server" Text="View Details" CssClass="btn-details" OnClick="btnViewDetails_Click" CommandArgument='<%# Eval("Id") %>' />
                                 </div>
                             </div>
                         </ItemTemplate>
-
-                        <EditItemTemplate>
-                            <div class="user-item">
-                                <div class="user-info">
-                                    <span class="user-id"><%# Eval("Id") %></span>
-                                    <asp:TextBox ID="txtName" runat="server" Text='<%# Bind("Name") %>' CssClass="edit-name" />
-                                    <asp:TextBox ID="txtEmail" runat="server" Text='<%# Bind("Email") %>' CssClass="edit-email" />
-                                    <asp:TextBox ID="txtRoles" runat="server" Text='<%# Bind("Role") %>' CssClass="edit-roles" />
-                                </div>
-                                <div class="user-actions">
-                                    <asp:LinkButton ID="btnUpdate" runat="server" CommandName="Update" CssClass="btn-update" Text="Update" />
-                                    <asp:LinkButton ID="btnCancel" runat="server" CommandName="Cancel" CssClass="btn-cancel" Text="Cancel" />
-                                </div>
-                            </div>
-                        </EditItemTemplate>
                     </asp:ListView>
+                </div>
+
+                <div class="popup">
+                    <button class="close-btn">&times;</button>
+                    <h2>User Details</h2>
+                    <div id="userDetailContent">
+                        <!--Dynaically load user content-->
+
+                    </div>
                 </div>
 
             </div>

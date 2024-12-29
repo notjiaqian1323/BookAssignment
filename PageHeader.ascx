@@ -47,9 +47,9 @@
                 <span>My Account</span>
                 <img src="Images/nav-down.png" class="nav-down" />
                 <ul class="dropdown-menu">
-                    <li><a href="ProfileManagement.aspx">Edit Profile</a></li>
+                    <li><a href="">Edit Profile</a></li>
                     <li><a href="ProfileManagement.aspx">Orders</a></li>
-                    <li><a href="ProfileManagement.aspx">Account Security</a></li>
+                    <li><a href="ChangePassword.aspx">Account Security</a></li>
                     <li><a href="Bookshelf.aspx">My Books</a></li>
                 </ul>
             </ul>

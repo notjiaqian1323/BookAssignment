@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.UI;
 
@@ -30,11 +31,11 @@ namespace OnlineBookStore
 
                 string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
 
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString))
                 {
-                    string query = "SELECT Id FROM User WHERE Email = @Email AND Password = @Password AND Role = 'Customer'";
+                    string query = "SELECT Id FROM [User] WHERE LOWER(Email) = @Email AND Password = @Password AND Role = 'Customer'";
                     SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Email", email.ToLower());
                     command.Parameters.AddWithValue("@Password", HashPassword(password));
 
                     connection.Open();
@@ -44,7 +45,6 @@ namespace OnlineBookStore
                     {
                         Session["UserRole"] = "Customer";
                         Session["UserId"] = userId;
-
                         Response.Redirect("HomePage.aspx");
                     }
                     else

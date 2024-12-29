@@ -163,6 +163,7 @@
     <Content Include="ProfilePic\defaultpic.png" />
     <Content Include="Reader.js" />
     <Content Include="Register.aspx" />
+    <Content Include="Register.css" />
     <Content Include="SelectRole.aspx" />
     <Content Include="Images\bookbg1.png" />
     <Content Include="Images\bookbg2.png" />
