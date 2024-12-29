@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminLogin.aspx" />
+    <Content Include="AdminLogin.css" />
     <Content Include="Admin\Admin.js" />
     <Content Include="Admin\Reporting.css" />
     <Content Include="Admin\Products.aspx" />
@@ -144,6 +145,7 @@
     <Content Include="ChangePassword.aspx" />
     <Content Include="Checkout.aspx" />
     <Content Include="CustomerLogin.aspx" />
+    <Content Include="CustomerLogin.css" />
     <Content Include="Database1.mdf" />
     <Content Include="Database1_log.ldf" />
     <Content Include="Images\arrow-back.png" />
@@ -158,6 +160,7 @@
     <Content Include="Images\zoom-in.png" />
     <Content Include="Images\zoom-out.png" />
     <Content Include="jquery.js" />
+    <Content Include="ProfilePic\defaultpic.png" />
     <Content Include="Reader.js" />
     <Content Include="Register.aspx" />
     <Content Include="SelectRole.aspx" />
@@ -194,6 +197,18 @@
     <Content Include="Profile.css" />
     <Content Include="turn.js" />
     <Content Include="UpdateInfo.aspx" />
+    <Content Include="Wallpapers\background0.gif" />
+    <Content Include="Wallpapers\background1.jpg" />
+    <Content Include="Wallpapers\background2.jpg" />
+    <Content Include="Wallpapers\background3.jpg" />
+    <Content Include="Wallpapers\background4.jpg" />
+    <Content Include="Wallpapers\background5.jpg" />
+    <Content Include="Wallpapers\background6.jpg" />
+    <Content Include="Wallpapers\background7.jpg" />
+    <Content Include="Wallpapers\background8.jpg" />
+    <Content Include="Wallpapers\background9.jpg" />
+    <Content Include="Wallpapers\bookstorelogo.jpg" />
+    <Content Include="Wallpapers\profilewall.gif" />
     <Content Include="Web.config" />
     <Content Include="HomePage.aspx" />
     <Content Include="Bookshelf.aspx" />

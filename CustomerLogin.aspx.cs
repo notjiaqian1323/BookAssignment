@@ -32,7 +32,7 @@ namespace OnlineBookStore
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT Id FROM Users WHERE Email = @Email AND Password = @Password AND Role = 'Customer'";
+                    string query = "SELECT Id FROM User WHERE Email = @Email AND Password = @Password AND Role = 'Customer'";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Email", email);
                     command.Parameters.AddWithValue("@Password", HashPassword(password));

@@ -49,7 +49,7 @@ namespace OnlineBookStore
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT Password FROM Users WHERE Email = @Email AND Role = @Role";
+                string query = "SELECT Password FROM User WHERE Email = @Email AND Role = @Role";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Email", email);
                 cmd.Parameters.AddWithValue("@Role", "Admin");
