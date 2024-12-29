@@ -7,6 +7,7 @@
 <head runat="server">
     <title>Customers</title>
     <link rel="stylesheet" type="text/css" href="Reporting.css"/>
+    <link rel="stylesheet" type="text/css" href="Customers.css"/>
 
     <!--Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
@@ -44,23 +45,25 @@
                                     <span class="user-name"><%# Eval("Name") %></span>
                                     <span class="user-email"><%# Eval("Email") %></span>
                                     <span class="user-role"><%# Eval("Role") %></span>
-                                    <asp:Button ID="btnViewDetails" runat="server" Text="View Details" CssClass="btn-details" OnClick="btnViewDetails_Click" CommandArgument='<%# Eval("Id") %>' />
+                                    <button type="button" class="btn-details" data-id='<%# Eval("Id") %>' data-name='<%# Eval("Name") %>' 
+                                        data-email='<%# Eval("Email") %>' data-role='<%# Eval("Role") %>'>View Details</button>
                                 </div>
                             </div>
                         </ItemTemplate>
                     </asp:ListView>
                 </div>
 
+
+
+            </div>
+
                 <div class="popup">
                     <button class="close-btn">&times;</button>
                     <h2>User Details</h2>
-                    <div id="userDetailContent">
-                        <!--Dynaically load user content-->
-
+                    <div id="userDetailsContent">
+                        <!-- User details will be injected dynamically -->
                     </div>
                 </div>
-
-            </div>
 
 <%--            <!--Search Bar-->
             <div class="search">
@@ -90,6 +93,8 @@
 
         <!--Javascript charts-->
         <script src="Admin.js"></script>
+
+        <script src="Customers.js"></script>
     </form>
 </body>
 </html>

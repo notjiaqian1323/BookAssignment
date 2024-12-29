@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
@@ -17,12 +18,39 @@ namespace BookAssignment.Admin
             if (!IsPostBack)
             {
                 BindUsers();
+                string userId = Request.QueryString["userId"];
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString))
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand("SELECT * FROM [User] WHERE Id = @Id", conn);
+                        cmd.Parameters.AddWithValue("@Id", userId);
+
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            var user = new
+                            {
+                                Id = reader["Id"],
+                                Name = reader["Name"],
+                                Email = reader["Email"],
+                                Role = reader["Role"],
+                                Gender = reader["Gender"],
+                            };
+
+                            JavaScriptSerializer js = new JavaScriptSerializer();
+                            Response.Write(js.Serialize(user));
+                            Response.End();
+                        }
+                    }
+                }
             }
         }
 
         private void BindUsers()
         {
-            string query = "SELECT Id, Name, Email, Role FROM User";
+            string query = "SELECT Id, Name, Email, Role FROM [User]";
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -119,22 +147,6 @@ namespace BookAssignment.Admin
         protected void lvUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-        }
-
-
-        protected void btnViewDetails_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            int userId = Convert.ToInt32(btn.CommandArgument);
-
-            // Fetch user details from database
-            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = @"SELECT Name, Email, Role, Gender, Age FROM User WHERE Id = @Id";
-
-            }
         }
     }
 }

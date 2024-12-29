@@ -126,6 +126,8 @@
     <Content Include="AdminLogin.aspx" />
     <Content Include="AdminLogin.css" />
     <Content Include="Admin\Admin.js" />
+    <Content Include="Admin\Customers.css" />
+    <Content Include="Admin\Customers.js" />
     <Content Include="Admin\Reporting.css" />
     <Content Include="Admin\Products.aspx" />
     <Content Include="Admin\Customers.aspx" />

@@ -15,13 +15,14 @@
 }
 
 .grid-container {
-    display:grid;
+    display: grid;
     grid-template-columns: 260px 1fr 1fr 1fr;
     grid-template-rows: 0.2fr 3fr;
-    grid-template-areas: 
+    grid-template-areas:
         "sidebar top top top"
         "sidebar main main main";
     height: 100vh;
+    transition: filter 0ms ease-in-out 300ms;
 }
 
 /*          Header          */
