@@ -1,0 +1,98 @@
+﻿/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0abab5;
+    background-image: url('Wallpapers/profilewall.gif');
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #555555;
+}
+
+input[type="text"], input[type="email"], .aspNetDisabled {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+    input[type="text"]:focus, input[type="email"]:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+.radio-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+    .radio-container label {
+        margin-right: 10px;
+    }
+
+.button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: darkorange;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+}
+
+    .button:hover {
+        background-color: orange;
+    }
+
+.profile-picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+    .profile-picture img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 2px solid #cccccc;
+        margin-bottom: 10px;
+    }
+
+.message {
+    margin: 10px 0;
+    text-align: center;
+    color: #28a745;
+    font-weight: bold;
+}

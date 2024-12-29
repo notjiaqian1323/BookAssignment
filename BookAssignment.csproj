@@ -143,6 +143,7 @@
     <Content Include="BookDetails.css" />
     <Content Include="Cart.aspx" />
     <Content Include="ChangePassword.aspx" />
+    <Content Include="ChangePassword.css" />
     <Content Include="Checkout.aspx" />
     <Content Include="CustomerLogin.aspx" />
     <Content Include="CustomerLogin.css" />
@@ -198,6 +199,7 @@
     <Content Include="Profile.css" />
     <Content Include="turn.js" />
     <Content Include="UpdateInfo.aspx" />
+    <Content Include="UpdateInfo.css" />
     <Content Include="Wallpapers\background0.gif" />
     <Content Include="Wallpapers\background1.jpg" />
     <Content Include="Wallpapers\background2.jpg" />

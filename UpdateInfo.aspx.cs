@@ -30,7 +30,7 @@ namespace OnlineBookStore
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString))
             {
                 conn.Open();
-                string query = "SELECT Name, Email, Gender, ProfilePicture FROM User WHERE Id = @UserId";
+                string query = "SELECT Name, Email, Gender, ProfilePicture FROM [User] WHERE Id = @UserId";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@UserId", userId);
@@ -105,7 +105,7 @@ namespace OnlineBookStore
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString))
                 {
                     conn.Open();
-                    string query = "UPDATE User SET ProfilePicture = @ProfilePicture WHERE Id = @UserId";
+                    string query = "UPDATE [User] SET ProfilePicture = @ProfilePicture WHERE Id = @UserId";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@ProfilePicture", profilePicPath);
