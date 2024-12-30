@@ -24,6 +24,7 @@
             <div class="main-container">
                 <div class="main-title">
                     <h2>PRODUCTS</h2>
+                    <img src="../Images/more.png"/>
                 </div>
                 <div class="data-container">
 

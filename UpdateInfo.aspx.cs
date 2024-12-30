@@ -74,7 +74,7 @@ namespace OnlineBookStore
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString))
             {
                 conn.Open();
-                string query = "UPDATE User SET Name = @Name, Email = @Email, Gender = @Gender WHERE Id = @UserId";
+                string query = "UPDATE [User] SET Name = @Name, Email = @Email, Gender = @Gender WHERE Id = @UserId";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@Name", name);
@@ -130,7 +130,7 @@ namespace OnlineBookStore
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString))
             {
                 conn.Open();
-                string query = "SELECT COUNT(*) FROM User WHERE Email = @Email AND Id != @UserId";
+                string query = "SELECT COUNT(*) FROM [User] WHERE Email = @Email AND Id != @UserId";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@Email", email);

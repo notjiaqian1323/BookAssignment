@@ -1,7 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
   <siteMapNode url="~/HomePage.aspx" title="Home"  description="HomePage">
-    <siteMapNode url="~/BookCatalog.aspx" title="Book Catalog"  description="Book Catalog" />
-    <siteMapNode url="~/ProfileManagement.aspx" title="My Account"  description="Profile Management" />
+	  <siteMapNode url="~/BookCatalog.aspx" title="Book Catalog"  description="Book Catalog">
+		  <siteMapNode url="~/BookDetails.aspx" title="Book details" description="Book details"/>
+	  </siteMapNode>
+	  <siteMapNode url="~/ProfileManagement.aspx" title="My Account"  description="Profile Management">
+		  <siteMapNode url="~/UpdateInfo.aspx" title="Edit Profile" description="Edit Profile"/>
+		  <siteMapNode url="" title="Orders" description="My Orders"/>
+		  <siteMapNode url="~/ChangePassword.aspx" title="Account Security" description="Change Password"/>
+		  <siteMapNode url="~/Bookshelf.aspx" title="My Books" description="Purchased Books"/>
+	  </siteMapNode>
+	  <siteMapNode url="~/Cart.aspx" title="Cart" description="Cart page">
+		  <siteMapNode url="~/Checkout.aspx" title="Checkout" description="Checkout page" >
+			  <siteMapNode url="PaymentSuccessful.aspx" title="Payment Success" description="Payment Success"/>
+		  </siteMapNode>
+	  </siteMapNode>
   </siteMapNode>
 </siteMap>
