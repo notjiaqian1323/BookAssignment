@@ -6,33 +6,52 @@
     <title>Book Catalog</title>
     <link rel="stylesheet" type="text/css" href="Style.css" />
     <link rel="stylesheet" href="BookCatalog.css" />
-
-    <script type="text/javascript">
-        function addToCart(bookId) {
-            PageMethods.AddToCart(bookId, function (response) {
-                alert(response);
-            }, function (error) {
-                alert('Error: ' + error.get_message());
-            });
-        }
-    </script>
+    <script src="https://kit.fontawesome.com/637a048940.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <form id="form1" runat="server">
         <Page:Header ID="pgHeader" runat="server" />
         <h1>Book Catalog</h1>
         <script type="text/javascript">
+            // Function to show toast notifications
+            function showToast(message, type = 'success') {
+                const toastContainer = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `${message}`;
+
+                toastContainer.appendChild(toast);
+
+                // Remove toast after timeout
+                setTimeout(() => {
+                    toast.remove();
+                }, 5000); // Toast will disappear after 5 seconds
+            }
+
+
             function addToCart(bookId) {
                 PageMethods.AddToCart(bookId,
                     function (response) {
-                        alert(response);
+                        if (response.includes("REFRESH")) {
+                            showToast('<i class="fa-solid fa-circle-check"></i>  Product added to cart successfully!', 'success');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000); // Allow time for toast display
+                        } else if (response.includes("already")) {
+                            showToast(response, 'error');
+                        } else if (response.includes("log in")) {
+                            showToast(response, 'error');
+                        } else {
+                            showToast(response, 'success');
+                        }
                     },
                     function (error) {
                         console.error('An error occurred while adding the book to the shopping cart:', error);
-                        alert('An unexpected error occurred. Please try again later.');
+                        showToast('<i class="fa-solid fa-circle-exclamation"></i>  An unexpected error occurred. Please try again later.', 'error');
                     }
                 );
             }
+
         </script>
         <div class="genre-selector">
             <asp:DropDownList ID="ddlGenres" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlGenres_SelectedIndexChanged">
@@ -46,6 +65,7 @@
         </div>
         <div id="bookContainer" class="book-container" runat="server"></div>
         <asp:Label ID="lblMessage" runat="server" ForeColor="Green" Font-Bold="true" />
+        <div id="toast-container"></div>
         <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />
     </form>
 </body>

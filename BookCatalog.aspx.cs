@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Text;
 using System.Web;
@@ -98,17 +99,23 @@ namespace OnlineBookstore
         public static string AddToCart(int bookId)
         {
             string message = "Product added to cart successfully!";
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
 
             try
             {
+                if (HttpContext.Current.Session["UserId"] == null)
+                {
+                    return "<i class=\"fa-solid fa-circle-xmark\"></i> Please log in first to add to the shopping cart.";
+                }
+
+                int userId = Convert.ToInt32(HttpContext.Current.Session["UserId"]);
+
                 using (var connection = new SqlConnection(connectionString))
                 {
-                    // Get book information from Books table
                     string getBookQuery = @"
-                        SELECT Title, Genre, Description, ImageUrl, Price 
-                        FROM Books 
-                        WHERE BookId = @BookId";
+                SELECT Title, Genre, Description, ImageUrl, Price 
+                FROM Books 
+                WHERE BookId = @BookId";
 
                     connection.Open();
                     var command = new SqlCommand(getBookQuery, connection);
@@ -119,67 +126,57 @@ namespace OnlineBookstore
                         if (reader.Read())
                         {
                             string title = reader["Title"].ToString();
-                            string genre = reader["Genre"].ToString();
-                            string description = reader["Description"].ToString();
-                            string imageUrl = reader["ImageUrl"].ToString();
                             decimal price = Convert.ToDecimal(reader["Price"]);
-                            int userId;
-                            if (HttpContext.Current.Session["UserId"] == null || !int.TryParse(HttpContext.Current.Session["UserId"].ToString(), out userId))
-                            {
-                                return "Please log in first and then add to the shopping cart.";
-                            }
-
-                            reader.Close();
 
                             // Check if book already exists in cart
-                            string checkQuery = "SELECT COUNT(*) FROM Cart WHERE BookId = @BookId";
-                            command = new SqlCommand(checkQuery, connection);
-                            command.Parameters.AddWithValue("@BookId", bookId);
+                            string checkQuery = "SELECT COUNT(*) FROM Cart WHERE BookId = @BookId AND UserID = @UserId";
+                            var checkCommand = new SqlCommand(checkQuery, connection);
+                            checkCommand.Parameters.AddWithValue("@BookId", bookId);
+                            checkCommand.Parameters.AddWithValue("@UserId", userId);
 
-                            int exists = (int)command.ExecuteScalar();
+                            int exists = (int)checkCommand.ExecuteScalar();
 
                             if (exists == 0)
                             {
-                                // Insert new record if book doesn't exist in cart
+                                // Insert new record
                                 string insertQuery = @"
-                                    INSERT INTO Cart (BookId, Title, Genre, Description, ImageUrl, Price, UserId) 
-                                    VALUES (@BookId, @Title, @Genre, @Description, @ImageUrl, @Price, @UserId)";
+                            INSERT INTO Cart (BookId, Title, Price, UserId) 
+                            VALUES (@BookId, @Title, @Price, @UserId)";
 
-                                command = new SqlCommand(insertQuery, connection);
-                                command.Parameters.AddWithValue("@BookId", bookId);
-                                command.Parameters.AddWithValue("@Title", title);
-                                command.Parameters.AddWithValue("@Genre", genre);
-                                command.Parameters.AddWithValue("@Description", description);
-                                command.Parameters.AddWithValue("@ImageUrl", imageUrl);
-                                command.Parameters.AddWithValue("@Price", price);
-                                command.Parameters.AddWithValue("@UserId", userId); // Replace with actual user ID from session
+                                var insertCommand = new SqlCommand(insertQuery, connection);
+                                insertCommand.Parameters.AddWithValue("@BookId", bookId);
+                                insertCommand.Parameters.AddWithValue("@Title", title);
+                                insertCommand.Parameters.AddWithValue("@Price", price);
+                                insertCommand.Parameters.AddWithValue("@UserId", userId);
 
-                                command.ExecuteNonQuery();
+                                insertCommand.ExecuteNonQuery();
                             }
                             else
                             {
-                                message = "This book is already in your cart!";
+                                return "<i class=\"fa-solid fa-circle-xmark\"></i> This book is already in your cart!";
                             }
                         }
                     }
                 }
+
+                // Return a message indicating refresh is required
+                return "REFRESH";
             }
             catch (Exception ex)
             {
-                message = "Error: " + ex.Message;
+                return "<i class=\"fa-solid fa-circle-xmark\"></i>" + ex.Message;
             }
-
-            return message;
         }
-    }
 
-    public class Book
-    {
-        public int BookId { get; set; }
-        public string Title { get; set; }
-        public string Genre { get; set; }
-        public string Description { get; set; }
-        public string ImageUrl { get; set; }
-        public decimal Price { get; set; }
+
+        public class Book
+        {
+            public int BookId { get; set; }
+            public string Title { get; set; }
+            public string Genre { get; set; }
+            public string Description { get; set; }
+            public string ImageUrl { get; set; }
+            public decimal Price { get; set; }
+        }
     }
 }
