@@ -18,5 +18,10 @@ namespace OnlineBookStore
         {
             Response.Redirect("HomePage.aspx"); // Redirect to the homepage
         }
+
+        protected void btnOrderHistory_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("OrderHistory.aspx"); // Redirect to the OrderHistory
+        }
     }
 }

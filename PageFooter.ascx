@@ -3,6 +3,8 @@
 <hr />
 
 <footer>
+    <a href="Feedback.aspx">Feedback</a>
+    <a href="AboutUs.aspx">About Us</a>
     <div class="bottom-bar">
         <p>&copy; 2024 Bookstore  .  All Rights Reserved</p>
     </div>

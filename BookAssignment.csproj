@@ -123,6 +123,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AboutUs.aspx" />
     <Content Include="AdminLogin.aspx" />
     <Content Include="AdminLogin.css" />
     <Content Include="Admin\Admin.js" />
@@ -152,6 +153,7 @@
     <Content Include="CustomerLogin.css" />
     <Content Include="Database1.mdf" />
     <Content Include="Database1_log.ldf" />
+    <Content Include="Feedback.aspx" />
     <Content Include="Feedback.css" />
     <Content Include="Images\arrow-back.png" />
     <Content Include="Images\arrow-next.png" />
@@ -165,11 +167,12 @@
     <Content Include="Images\zoom-in.png" />
     <Content Include="Images\zoom-out.png" />
     <Content Include="jquery.js" />
+    <Content Include="OrderHistory.aspx" />
+    <Content Include="PaymentSuccessful.aspx" />
     <Content Include="ProfilePic\defaultpic.png" />
     <Content Include="Reader.js" />
     <Content Include="Register.aspx" />
     <Content Include="Register.css" />
-    <Content Include="SelectRole.aspx" />
     <Content Include="Images\bookbg1.png" />
     <Content Include="Images\bookbg2.png" />
     <Content Include="Images\bookbg3.png" />
@@ -194,7 +197,7 @@
     <Content Include="Images\search-icon.png" />
     <Content Include="Images\shop-cart.png" />
     <Content Include="Homepage.js" />
-    <Content Include="PaymentSuccessful.aspx" />
+    <Content Include="SelectRole.aspx" />
     <Content Include="Style.css" />
     <Content Include="Bookshelf.css" />
     <Content Include="Search.css" />
@@ -227,9 +230,15 @@
     <Content Include="Reader.aspx" />
     <Content Include="Flipper.aspx" />
     <Content Include="BookPageContent.ascx" />
-    <Content Include="Feedback.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutUs.aspx.cs">
+      <DependentUpon>AboutUs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AboutUs.aspx.designer.cs">
+      <DependentUpon>AboutUs.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminLogin.aspx.cs">
       <DependentUpon>AdminLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -307,19 +316,19 @@
     <Compile Include="CustomerLogin.aspx.designer.cs">
       <DependentUpon>CustomerLogin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Register.aspx.cs">
-      <DependentUpon>Register.aspx</DependentUpon>
+    <Compile Include="Feedback.aspx.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Register.aspx.designer.cs">
-      <DependentUpon>Register.aspx</DependentUpon>
+    <Compile Include="Feedback.aspx.designer.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SelectRole.aspx.cs">
-      <DependentUpon>SelectRole.aspx</DependentUpon>
+    <Compile Include="OrderHistory.aspx.cs">
+      <DependentUpon>OrderHistory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SelectRole.aspx.designer.cs">
-      <DependentUpon>SelectRole.aspx</DependentUpon>
+    <Compile Include="OrderHistory.aspx.designer.cs">
+      <DependentUpon>OrderHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaymentSuccessful.aspx.cs">
       <DependentUpon>PaymentSuccessful.aspx</DependentUpon>
@@ -327,6 +336,13 @@
     </Compile>
     <Compile Include="PaymentSuccessful.aspx.designer.cs">
       <DependentUpon>PaymentSuccessful.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HomePage.aspx.cs">
@@ -399,19 +415,19 @@
     <Compile Include="BookPageContent.ascx.designer.cs">
       <DependentUpon>BookPageContent.ascx</DependentUpon>
     </Compile>
+    <Compile Include="SelectRole.aspx.cs">
+      <DependentUpon>SelectRole.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SelectRole.aspx.designer.cs">
+      <DependentUpon>SelectRole.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UpdateInfo.aspx.cs">
       <DependentUpon>UpdateInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UpdateInfo.aspx.designer.cs">
       <DependentUpon>UpdateInfo.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Feedback.aspx.cs">
-      <DependentUpon>Feedback.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Feedback.aspx.designer.cs">
-      <DependentUpon>Feedback.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

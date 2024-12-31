@@ -7,152 +7,269 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
         }
 
         .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        .checkout-layout {
             display: flex;
-            justify-content: space-between;
+            gap: 30px;
         }
 
-        .form-section {
-            width: 55%;
+        .left-section {
+            flex: 2;
         }
 
-        .order-summary {
-            width: 40%;
-            border: none;
-            padding: 15px;
+        .right-section {
+            flex: 1;
+            padding: 20px;
             background-color: #f9f9f9;
+            border-radius: 8px;
+            height: fit-content;
+        }
+
+        h1 {
+            text-align: left;
+            margin-bottom: 20px;
         }
 
         h3 {
             margin-top: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"], select, .form-section input {
-            width: 100%;
-            padding: 8px;
             margin-bottom: 15px;
-            box-sizing: border-box;
+            font-weight: bold;
         }
 
         .btn {
             display: inline-block;
             background-color: #4CAF50;
             color: white;
-            padding: 10px;
+            padding: 8px 15px;
             text-align: center;
             text-decoration: none;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
         }
 
-        table {
+        .complete-order-btn {
             width: 100%;
-            border-collapse: collapse;
+            margin-top: 20px;
         }
 
-        table th, table td {
-            border: none;
-            padding: 8px;
+        /* 订单表格样式 */
+        .order-grid {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .order-grid th {
+            background-color: #fff;
+            padding: 10px;
             text-align: left;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .order-grid td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .summary-section p {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 5px 0;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 1.1em;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        /* Coupon section styles */
+        .coupon-section {
+            margin: 15px 0;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .coupon-section input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .coupon-section .btn {
+            white-space: nowrap;
+        }
+
+        .payment-method {
+            margin-top: 20px;
+        }
+
+        .payment-method input[type="text"],
+        .payment-method input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .payment-options {
+            margin-bottom: 15px;
+        }
+
+        .payment-options input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .payment-options label {
+            margin-right: 20px;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .right-section h3 {
+            margin-top: 0;
         }
     </style>
+    <script type="text/javascript">
+        function showPaymentFields(type) {
+            var creditFields = document.getElementById('creditCardFields');
+            var debitFields = document.getElementById('debitCardFields');
+
+            if (type === 'credit') {
+                creditFields.style.display = 'block';
+                debitFields.style.display = 'none';
+            } else {
+                creditFields.style.display = 'none';
+                debitFields.style.display = 'block';
+            }
+        }
+
+        window.onload = function () {
+            var rdoCredit = document.getElementById('<%= rdoCredit.ClientID %>');
+            var rdoDebit = document.getElementById('<%= rdoDebit.ClientID %>');
+
+            rdoCredit.addEventListener('change', function () {
+                if (this.checked) showPaymentFields('credit');
+            });
+
+            rdoDebit.addEventListener('change', function () {
+                if (this.checked) showPaymentFields('debit');
+            });
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <h1>Checkout Page</h1>
-
         <div class="container">
-            <!-- Shipping Address Section -->
-            <div class="form-section">
-                <h3>Billing Address</h3>
+            <div class="checkout-layout">
+                <!-- Left Section -->
+                <div class="left-section">
+                    <h3>Your Order</h3>
+                    <div class="order-summary">
+                        <asp:GridView ID="gvOrderSummary" runat="server" AutoGenerateColumns="false" 
+                            CssClass="order-grid" GridLines="None">
+                            <Columns>
+                                <asp:TemplateField HeaderText="Product Name">
+                                    <ItemTemplate>
+                                        <asp:Image ID="imgProduct" runat="server" ImageUrl='<%# Eval("ImageUrl") %>' 
+                            Width="80" Height="80" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="Title" HeaderText="Title" />
+                                <asp:BoundField DataField="Price" HeaderText="Price" 
+                            DataFormatString="RM {0:F2}" />
+                            </Columns>
+                        </asp:GridView>
+                    </div>
 
-                <label for="txtFullName">Full Name:</label>
-                <asp:TextBox ID="txtFullName" runat="server"></asp:TextBox>
+                    <!-- Payment Method Section -->
+                    <div class="payment-method">
+                        <h3>Payment Method</h3>
+                        <div class="payment-options">
+                            <asp:RadioButton ID="rdoCredit" runat="server" GroupName="PaymentType" 
+                                Text="Credit Card" />
+                            <asp:RadioButton ID="rdoDebit" runat="server" GroupName="PaymentType" 
+                                Text="Debit Card" />
+                        </div>
 
-                <label for="txtStreetAddress">Street Address:</label>
-                <asp:TextBox ID="txtStreetAddress" runat="server"></asp:TextBox>
+                        <!-- Credit Card Fields -->
+                        <div id="creditCardFields" style="display: none;">
+                            <asp:TextBox ID="txtCreditCardName" runat="server" 
+                                placeholder="Name on Card" autocomplete="off"></asp:TextBox>
+                            <asp:TextBox ID="txtCreditCardNumber" runat="server" 
+                                placeholder="Credit Card Number" autocomplete="off"></asp:TextBox>
+                            <asp:TextBox ID="txtExpiry" runat="server" 
+                                placeholder="MM/YY" autocomplete="off"></asp:TextBox>
+                            <asp:TextBox ID="txtCVC" runat="server" 
+                                placeholder="CVV" autocomplete="off"></asp:TextBox>
+                        </div>
 
-                <label for="txtApartment">Apartment/Suite:</label>
-                <asp:TextBox ID="txtApartment" runat="server"></asp:TextBox>
+                        <!-- Debit Card Fields -->
+                        <div id="debitCardFields" style="display: none;">
+                            <asp:TextBox ID="txtDebitUsername" runat="server" 
+                                placeholder="Username" autocomplete="off"></asp:TextBox>
+                            <asp:TextBox ID="txtDebitPassword" runat="server" 
+                                TextMode="Password" placeholder="Password" autocomplete="off"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
 
-                <label for="ddlState">State:</label>
-                <asp:DropDownList ID="ddlState" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlState_SelectedIndexChanged">
-                    <asp:ListItem Text="-- Select State --" Value=""></asp:ListItem>
-                    <asp:ListItem Text="Selangor" Value="Selangor"></asp:ListItem>
-                    <asp:ListItem Text="Johor" Value="Johor"></asp:ListItem>
-                    <asp:ListItem Text="Kedah" Value="Kedah"></asp:ListItem>
-                    <asp:ListItem Text="Kelantan" Value="Kelantan"></asp:ListItem>
-                    <asp:ListItem Text="Negeri Sembilan" Value="Negeri Sembilan"></asp:ListItem>
-                    <asp:ListItem Text="Pahang" Value="Pahang"></asp:ListItem>
-                    <asp:ListItem Text="Perak" Value="Perak"></asp:ListItem>
-                    <asp:ListItem Text="Perlis" Value="Perlis"></asp:ListItem>
-                    <asp:ListItem Text="Pulau Pinang" Value="Pulau Pinang"></asp:ListItem>
-                    <asp:ListItem Text="Sabah" Value="Sabah"></asp:ListItem>
-                    <asp:ListItem Text="Sarawak" Value="Sarawak"></asp:ListItem>
-                    <asp:ListItem Text="Terengganu" Value="Terengganu"></asp:ListItem>
-                    <asp:ListItem Text="Melaka" Value="Melaka"></asp:ListItem>
-                    <asp:ListItem Text="Kuala Lumpur" Value="Kuala Lumpur"></asp:ListItem>
-                    <asp:ListItem Text="Labuan" Value="Labuan"></asp:ListItem>
-                    <asp:ListItem Text="Putrajaya" Value="Putrajaya"></asp:ListItem>
+                <!-- Right Section -->
+                <div class="right-section">
+                    <h3>Your Order</h3>
+                    <div class="summary-section">
+                        <p>Subtotal Product<span><asp:Label ID="lblSubtotals" runat="server" 
+                            Text="RM 0.00"></asp:Label></span></p>
+                        <div class="coupon-section">
+                            <asp:TextBox ID="txtCouponCode" runat="server" 
+                                placeholder="Coupon Code"></asp:TextBox>
+                            <asp:Button ID="btnApplyCoupon" runat="server" Text="Apply" 
+                                CssClass="btn" OnClick="btnApplyCoupon_Click" />
+                        </div>
+                        <p>Coupon Code: <asp:Label ID="lblCouponCodes" runat="server" 
+                            Text="None"></asp:Label></p>
+                        <p class="total">Total (RM)<span><asp:Label ID="lblTotals" runat="server" 
+                            Text="0.00"></asp:Label></span></p>
+                    </div>
 
-                </asp:DropDownList>
-
-                <label for="ddlCity">City:</label>
-                <asp:DropDownList ID="ddlCity" runat="server" Enabled="False">
-                    <asp:ListItem Text="-- Select City --" Value=""></asp:ListItem>
-                </asp:DropDownList>
-
-                <label for="txtZipCode">Zip Code:</label>
-                <asp:TextBox ID="txtZipCode" runat="server"></asp:TextBox>
-
-                <label for="txtPhone">Phone:</label>
-                <asp:TextBox ID="txtPhone" runat="server"></asp:TextBox>
-
-                <label for="txtEmail">Email Address:</label>
-                <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                    <asp:Button ID="btnCompleteOrder" runat="server" Text="Complete Order" 
+                        CssClass="btn complete-order-btn" OnClick="btnCompleteOrder_Click" />
+                </div>
             </div>
 
-            <!-- Order Summary Section -->
-            <div class="order-summary">
-                <h3>Your Order</h3>
-                <asp:GridView ID="gvOrderSummary" runat="server" AutoGenerateColumns="false">
-                    <Columns>
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:Image ID="imgProduct" runat="server" ImageUrl='<%# Eval("ImageUrl") %>' Width="100" Height="100" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="Title" HeaderText="Title" />
-                        <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:F2}" />
-                    </Columns>
-                </asp:GridView>
-
-                <label for="txtCouponCode">Have a coupon code?</label>
-                <asp:TextBox ID="txtCouponCode" runat="server"></asp:TextBox>
-                <asp:Button ID="btnApplyCoupon" runat="server" Text="Apply" CssClass="btn" />
-
-                <h3>Payment Method</h3>
-                <asp:TextBox ID="txtCreditCardNumber" runat="server" Placeholder="Credit Card Number"></asp:TextBox><br />
-                <asp:TextBox ID="txtExpiry" runat="server" Placeholder="MM/YY"></asp:TextBox><br />
-                <asp:TextBox ID="txtCVC" runat="server" Placeholder="CVC/CVV"></asp:TextBox><br />
-
-                <p>Coupon Applied: <asp:Label ID="lblCouponCodes" runat="server" Text="None"></asp:Label></p>
-                <p>Subtotal: <asp:Label ID="lblSubtotals" runat="server" Text="0.00"></asp:Label></p>
-                <p>Total: <asp:Label ID="lblTotals" runat="server" Text="0.00"></asp:Label></p>
-
-                <asp:Button ID="btnCompleteOrder" runat="server" Text="Complete Order" CssClass="btn" OnClick="btnCompleteOrder_Click" />
-
-        <asp:Label ID="lblErrorMessage" runat="server" ForeColor="Red"></asp:Label>
-            </div>
+            <asp:Label ID="lblErrorMessage" runat="server" CssClass="error-message"></asp:Label>
         </div>
-
     </form>
 </body>
 </html>

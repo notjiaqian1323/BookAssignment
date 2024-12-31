@@ -126,6 +126,7 @@ namespace OnlineBookstore
                         if (reader.Read())
                         {
                             string title = reader["Title"].ToString();
+                            string image = reader["ImageUrl"].ToString();
                             decimal price = Convert.ToDecimal(reader["Price"]);
 
                             // Check if book already exists in cart
@@ -140,14 +141,15 @@ namespace OnlineBookstore
                             {
                                 // Insert new record
                                 string insertQuery = @"
-                            INSERT INTO Cart (BookId, Title, Price, UserId) 
-                            VALUES (@BookId, @Title, @Price, @UserId)";
+                            INSERT INTO Cart (BookId, Title, Price, UserId, ImageUrl) 
+                            VALUES (@BookId, @Title, @Price, @UserId, @ImageUrl)";
 
                                 var insertCommand = new SqlCommand(insertQuery, connection);
                                 insertCommand.Parameters.AddWithValue("@BookId", bookId);
                                 insertCommand.Parameters.AddWithValue("@Title", title);
                                 insertCommand.Parameters.AddWithValue("@Price", price);
                                 insertCommand.Parameters.AddWithValue("@UserId", userId);
+                                insertCommand.Parameters.AddWithValue("@ImageUrl", image);
 
                                 insertCommand.ExecuteNonQuery();
                             }

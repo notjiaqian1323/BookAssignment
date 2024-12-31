@@ -12,12 +12,18 @@
             align-items: center;
             height: 100vh;
             background-color: #f4f4f9;
+            background-image: url('Wallpapers/background0.gif'); /* Set background image */
+            background-size: cover; /* Ensure the image covers the entire viewport */
+            background-position: center; /* Center the background image */
         }
         .container {
             text-align: center;
+            background-color: rgba(255, 255, 255, 0.7); /* Optional: semi-transparent background for readability */
+            padding: 20px;
+            border-radius: 10px;
         }
         button {
-            background-color: #4CAF50;
+            background-color: #ff8c00; /* Orange color */
             color: white;
             border: none;
             padding: 15px 30px;
@@ -27,7 +33,7 @@
             border-radius: 5px;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #e07b00; /* Darker orange on hover */
         }
     </style>
 </head>

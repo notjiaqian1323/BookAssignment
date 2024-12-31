@@ -59,6 +59,7 @@
             <h1>Payment Successful!</h1>
             <p>Thank you for your purchase.</p>
             <asp:Button ID="btnBackToHome" runat="server" Text="Back to Home" CssClass="btn" OnClick="btnBackToHome_Click" />
+            <asp:Button ID="btnOrderHistory" runat="server" Text="Go to Order History" CssClass="btn" OnClick="btnOrderHistory_Click" />
         </div>
     </form>
 </body>

@@ -1,4 +1,13 @@
-﻿.main-title img {
+﻿#add-icon {
     width: 16px;
     height: 16px;
+}
+
+.main-title {
+    padding: 0 25px;
+    align-items: center;
+}
+
+.right {
+    cursor: pointer;
 }

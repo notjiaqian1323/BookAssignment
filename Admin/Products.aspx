@@ -7,7 +7,7 @@
 <head runat="server">
     <title>Products</title>
     <link rel="stylesheet" type="text/css" href="Reporting.css"/>
-
+    <link rel="stylesheet" type="text/css" href="Products.css"/>
     <!--Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
 
@@ -24,7 +24,10 @@
             <div class="main-container">
                 <div class="main-title">
                     <h2>PRODUCTS</h2>
-                    <img src="../Images/more.png"/>
+                    <div class="right">
+                        <img id = "add-icon" src="../Images/more.png"/>
+                        <span>Add More Products</span>
+                    </div>
                 </div>
                 <div class="data-container">
 
@@ -43,6 +46,8 @@
                                     <asp:Label ID="lblBookName" runat="server" Text='<%# Eval("Title") %>' CssClass="book-title"></asp:Label>
                                     <asp:Label ID="lblBookDesc" runat="server" Text='<%# Eval("Description") %>' CssClass="book-desc"></asp:Label>
                                     <asp:Label ID="lblPrice" runat="server" Text='<%# Eval("Price", "{0:C}") %>' CssClass="book-price"></asp:Label>
+                                    <button type="button" class="btn-details" data-id='<%# Eval("Title") %>' data-description='<%# Eval("Description") %>' 
+                                        data-genre='<%# Eval("Genre") %>' data-price='<%# Eval("Price") %>'>View Details</button>
                                 </div>
 
                                 <!-- Action Buttons -->
@@ -102,8 +107,16 @@
                 <span class="cart-qty"> (0)</span>
             </div>--%>
 
-        </div
+        </div>
 
+        <div class="popup">
+                    <button class="close-btn">&times;</button>
+                    <h2>User Details</h2>
+                    <div id="userDetailsContent">
+                        <!-- User details will be injected dynamically -->
+                    </div>
+        </div>
+        
         <!--Charts-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/4.1.0/apexcharts.min.js"></script>
 

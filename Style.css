@@ -1,5 +1,5 @@
 ﻿body {
-    background-color: black;
+    background: url("Wallpapers/profilewall.gif");
     margin: 0;
 }
 
@@ -9,7 +9,7 @@ form {
     color: #333333;
     max-width:90%;
     margin: 0 auto;
-    padding: 0 100px;
+    padding: 0 50px;
     padding-top: 10px;
     background-color: #fff;
 }

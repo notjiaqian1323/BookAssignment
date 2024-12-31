@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -10,6 +11,12 @@ namespace OnlineBookstore
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserId"] == null)
+            {
+                Response.Redirect("SelectRole.aspx?ReturnUrl=Cart.aspx");
+                return;
+            }
+
             if (!IsPostBack)
             {
                 LoadBooks();
@@ -20,11 +27,22 @@ namespace OnlineBookstore
         private void LoadBooks()
         {
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
+            int userId = Convert.ToInt32(Session["UserId"]);
+
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = "SELECT BookId, ImageUrl, Title, Price FROM Books";
+                string query = @"
+            SELECT CartID,
+                   ImageUrl, 
+                   Title, 
+                   Price 
+            FROM Cart
+            WHERE UserId = @UserId";
+
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+
                     con.Open();
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
@@ -33,9 +51,25 @@ namespace OnlineBookstore
                     gvCart.DataSource = dt;
                     gvCart.DataBind();
                     Session["Cart"] = dt;
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        decimal subtotal = dt.AsEnumerable()
+                            .Sum(row => Convert.ToDecimal(row["Price"]));
+
+                        lblSubtotal.Text = subtotal.ToString("F2");
+                        decimal shipping = 10;
+                        lblTotal.Text = (subtotal + shipping).ToString("F2");
+                    }
+                    else
+                    {
+                        lblSubtotal.Text = "0.00";
+                        lblTotal.Text = "10.00";
+                    }
                 }
             }
         }
+
 
         private void UpdateTotal(decimal discount)
         {
@@ -70,47 +104,40 @@ namespace OnlineBookstore
 
         protected void btnCheckout_Click(object sender, EventArgs e)
         {
-            // Create a DataTable to store selected cart items
+
             DataTable selectedItems = new DataTable();
-            selectedItems.Columns.Add("BookID", typeof(int));
             selectedItems.Columns.Add("ImageUrl", typeof(string));
             selectedItems.Columns.Add("Title", typeof(string));
             selectedItems.Columns.Add("Price", typeof(decimal));
 
-            // Iterate through GridView rows
+
             foreach (GridViewRow row in gvCart.Rows)
             {
                 CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
                 if (chkSelect != null && chkSelect.Checked)
                 {
-                    // Get BookID
-                    HiddenField hfBookID = (HiddenField)row.FindControl("hfBookID");
-                    int bookId = hfBookID != null ? Convert.ToInt32(hfBookID.Value) : 0;
 
-                    // Get ImageUrl
                     Image imgBook = (Image)row.FindControl("imgBook");
                     string imageUrl = imgBook != null ? imgBook.ImageUrl : "";
 
-                    // Get Title
-                    Label lblTitle = (Label)row.FindControl("lblTitle");
-                    string title = lblTitle != null ? lblTitle.Text : "";
 
-                    // Get Price
+                    string title = row.Cells[2].Text;
+
+
                     Label lblPrice = (Label)row.FindControl("lblPrice");
-                    decimal price = lblPrice != null ? decimal.Parse(lblPrice.Text.Replace("RM", "").Trim()) : 0;
+                    decimal price = decimal.Parse(lblPrice.Text.Replace("RM", "").Trim());
 
-                    // Add row to the DataTable
-                    selectedItems.Rows.Add(bookId, imageUrl, title, price);
+
+                    selectedItems.Rows.Add(imageUrl, title, price);
                 }
             }
 
-            // Store selected items in Session
+
             Session["SelectedItems"] = selectedItems;
 
-            // Redirect to Checkout page
+
             Response.Redirect("Checkout.aspx");
         }
-
 
         protected void chkSelect_CheckedChanged(object sender, EventArgs e)
         {
@@ -145,6 +172,51 @@ namespace OnlineBookstore
                 if (lblPrice != null && decimal.TryParse(lblPrice.Text, out decimal price))
                 {
                     lblPrice.Text = $"RM {price:F2}";
+                }
+            }
+        }
+
+        protected void gvCart_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "DeleteItem")
+            {
+                int cartId = Convert.ToInt32(e.CommandArgument);
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
+                int userId = Convert.ToInt32(Session["UserId"]);
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    string query = "DELETE FROM Cart WHERE CartID = @CartID AND UserId = @UserId";
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@CartID", cartId);
+                        cmd.Parameters.AddWithValue("@UserId", userId);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                LoadBooks();
+                UpdateTotal(0);
+            }
+        }
+
+        private void RemoveFromCart(int bookId)
+        {
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
+            int userId = Convert.ToInt32(Session["UserId"]);
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string query = "DELETE FROM Cart WHERE BookId = @BookId AND UserId = @UserId";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@BookId", bookId);
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
