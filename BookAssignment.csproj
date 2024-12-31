@@ -152,6 +152,7 @@
     <Content Include="CustomerLogin.css" />
     <Content Include="Database1.mdf" />
     <Content Include="Database1_log.ldf" />
+    <Content Include="Feedback.css" />
     <Content Include="Images\arrow-back.png" />
     <Content Include="Images\arrow-next.png" />
     <Content Include="Images\arrow-right.png" />
@@ -226,6 +227,7 @@
     <Content Include="Reader.aspx" />
     <Content Include="Flipper.aspx" />
     <Content Include="BookPageContent.ascx" />
+    <Content Include="Feedback.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminLogin.aspx.cs">
@@ -403,6 +405,13 @@
     </Compile>
     <Compile Include="UpdateInfo.aspx.designer.cs">
       <DependentUpon>UpdateInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Feedback.aspx.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Feedback.aspx.designer.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

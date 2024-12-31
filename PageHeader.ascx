@@ -23,10 +23,9 @@
             <!--Cart-->
             <div class="cart">
                 <asp:ImageButton ID="CartButton" runat="server" ImageUrl="~/Images/shop-cart.png" AlternateText="Cart" CssClass="cart-icon" OnClick="CartButton_Click" />
-                <span class="cart-price">RM0.00</span>
-                <span class="cart-qty"> (0)</span>
+                <span id="CartPrice" runat="server" class="cart-price">RM0.00</span>
+                <span id="CartQty" runat="server" class="cart-qty">(0)</span>
             </div>
-
         </div>
         
         <!--Nav links-->
@@ -54,5 +53,56 @@
                 </ul>
             </ul>
         </div>
+
+<script>
+    // Function to refresh the cart labels dynamically
+    async function refreshCart() {
+        try {
+            const response = await fetch('PageHeader.ascx/GetCartSummary', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                console.error('Cart Update Error:', data.error);
+                return;
+            }
+
+            document.getElementById('<%= CartPrice.ClientID %>').innerText = `RM${data.totalPrice}`;
+            document.getElementById('<%= CartQty.ClientID %>').innerText = `(${data.itemCount})`;
+        } catch (error) {
+            console.error('Error fetching cart summary:', error);
+        }
+    }
+
+    // Function to add product to the cart
+    async function addToCart(bookId) {
+        try {
+            const response = await fetch('YourWebService.asmx/AddToCart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log('Product added to cart successfully!');
+                await refreshCart(); // Update cart dynamically after adding
+            } else {
+                console.error('Error adding to cart:', data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+</script>
+
+
 
 
