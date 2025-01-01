@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -22,24 +24,63 @@ namespace BookAssignment
 
         private void LoadPurchasedBooks()
         {
-            if (Session["SelectedItems"] != null)
+            if (Session["UserId"] != null)
             {
-                DataTable selectedItems = (DataTable)Session["SelectedItems"];
+                int userId = Convert.ToInt32(Session["UserId"]);
+                DataTable purchasedBooks = new DataTable();
+
+                string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string query = @"
+                SELECT b.ImageUrl, b.Title, o.BookID
+                FROM Orders o
+                INNER JOIN Books b ON o.BookID = b.BookId
+                WHERE o.UserID = @UserID";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", userId);
+                        conn.Open();
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(purchasedBooks);
+                        }
+                    }
+                }
+
+                // Render the books dynamically
                 StringBuilder sb = new StringBuilder();
 
-                foreach (DataRow row in selectedItems.Rows)
+                if (purchasedBooks.Rows.Count > 0)
                 {
-                    string imageUrl = row["ImageUrl"].ToString();
-                    string title = row["Title"].ToString();
+                    foreach (DataRow row in purchasedBooks.Rows)
+                    {
+                        string imageUrl = row["ImageUrl"].ToString();
+                        string title = row["Title"].ToString();
 
-                    sb.AppendFormat(@"
+                        sb.AppendFormat(@"
+                <div class='box'>
+                    <img src='{0}' alt='{1}' />
+                    <div class='overlay'>
+                        <h3 class='title'>{1}</h3>
+                        <a href='Flipper.aspx?bookId={2}'>Read Now</a>
+                    </div>
+                </div>", imageUrl, title, row["BookID"]);
+                    }
+                }
+                else
+                {
+                    // No books found for the user
+                    sb.Append(@"
             <div class='box'>
-                <img src='{0}' alt='{1}' />
-                <div class='overlay'>
-                    <h3 class='title'>{1}</h3>
-                    <a href='Flipper.aspx'>Read Now</a>
+                <img src='Images/light-gray.jpg' alt='No Books' />
+                <div class='discover'>
+                    <h3>No Books Found</h3>
                 </div>
-            </div>", imageUrl, title);
+            </div>");
                 }
 
                 // Add the Discover More box at the end
@@ -56,7 +97,7 @@ namespace BookAssignment
             }
             else
             {
-                // Handle case where no items are found in the session
+                // If no session, display no books found
                 booksContainer.InnerHtml = @"
         <div class='box'>
             <img src='Images/light-gray.jpg' alt='No Books' />

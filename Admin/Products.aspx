@@ -29,6 +29,7 @@
                         <span>Add More Products</span>
                     </div>
                 </div>
+                <a href="Products.aspx">Products.aspx</a>
                 <div class="data-container">
 
                     <asp:Label ID="lblErrorMessage" runat="server" CssClass="error-message" Visible="false"></asp:Label>
@@ -46,8 +47,16 @@
                                     <asp:Label ID="lblBookName" runat="server" Text='<%# Eval("Title") %>' CssClass="book-title"></asp:Label>
                                     <asp:Label ID="lblBookDesc" runat="server" Text='<%# Eval("Description") %>' CssClass="book-desc"></asp:Label>
                                     <asp:Label ID="lblPrice" runat="server" Text='<%# Eval("Price", "{0:C}") %>' CssClass="book-price"></asp:Label>
-                                    <button type="button" class="btn-details" data-id='<%# Eval("Title") %>' data-description='<%# Eval("Description") %>' 
-                                        data-genre='<%# Eval("Genre") %>' data-price='<%# Eval("Price") %>'>View Details</button>
+                                    <button type="button" class="btn-details" 
+                                        data-id='<%# Eval("BookId") %>' 
+                                        data-title='<%# Eval("Title") %>' 
+                                        data-description='<%# Eval("Description") %>' 
+                                        data-genre='<%# Eval("Genre") %>' 
+                                        data-price='<%# Eval("Price") %>' 
+                                        data-author='<%# Eval("Author") %>'
+                                        data-image='<%# Eval("ImageUrl") %>'>
+                                        View Details
+                                    </button>
                                 </div>
 
                                 <!-- Action Buttons -->
@@ -84,37 +93,14 @@
                     </asp:ListView>
                 </div>
             </div>
-
-<%--            <!--Search Bar-->
-            <div class="search">
-                <asp:ImageButton ID="SearchButton" runat="server" ImageUrl="~/Images/search-icon.png" AlternateText="Search" CssClass="search-icon" />
-                <asp:TextBox runat="server" CssClass="search-box" ID="txtSearchBox" Placeholder="Title, Author, Keyword"/>
-            </div>
-
-            <!--Login-->
-            <div class="login">
-                <asp:ImageButton ID="ProfileButton" runat="server" ImageUrl="~/Images/profile-icon.png" AlternateText="Profile" CssClass="profile-icon" />
-                <div class="profile-txt">
-                    <asp:Label runat="server" CssClass="login-signup" ID="lblloginSignup" Text="Login / SignUp" />
-                    <asp:Label runat="server" CssClass="my-Account" ID="lblMyAccount" Text="My Account"/>
-                </div>
-            </div>
-
-            <!--Cart-->
-            <div class="cart">
-                <asp:ImageButton ID="CartButton" runat="server" ImageUrl="~/Images/shop-cart.png" AlternateText="Cart" CssClass="cart-icon" />
-                <span class="cart-price">RM0.00</span>
-                <span class="cart-qty"> (0)</span>
-            </div>--%>
-
         </div>
 
-        <div class="popup">
-                    <button class="close-btn">&times;</button>
-                    <h2>User Details</h2>
-                    <div id="userDetailsContent">
-                        <!-- User details will be injected dynamically -->
-                    </div>
+        <div class="popup" id="bookDetailsPopup">
+            <button class="close-btn" onclick="closePopup()">&times;</button>
+            <h2>Book Details</h2>
+            <div id="bookDetailsContent">
+                <!-- Book details will be injected dynamically -->
+            </div>
         </div>
         
         <!--Charts-->

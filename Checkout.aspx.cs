@@ -136,7 +136,7 @@ namespace OnlineBookStore
                     try
                     {
                         // 获取购物车中的所有商品
-                        string cartQuery = @"SELECT Title, Price 
+                        string cartQuery = @"SELECT BookId, Price 
                                           FROM Cart 
                                           WHERE UserID = @UserID";
 
@@ -147,19 +147,19 @@ namespace OnlineBookStore
                             {
                                 while (reader.Read())
                                 {
-                                    string bookTitle = reader["Title"].ToString();
+                                    int bookId = Convert.ToInt32(reader["BookId"]);
                                     decimal price = Convert.ToDecimal(reader["Price"]);
 
                                     // 为每本书创建一个订单记录
                                     string orderQuery = @"INSERT INTO Orders 
-                                                        (UserID, BookTitle, TotalPrice, PaymentMethod, OrderDate) 
+                                                        (UserID, BookID, TotalPrice, PaymentMethod, OrderDate) 
                                                         VALUES 
-                                                        (@UserID, @BookTitle, @TotalPrice, @PaymentMethod, GETDATE())";
+                                                        (@UserID, @BookId, @TotalPrice, @PaymentMethod, GETDATE())";
 
                                     using (SqlCommand orderCmd = new SqlCommand(orderQuery, conn, transaction))
                                     {
                                         orderCmd.Parameters.AddWithValue("@UserID", userId);
-                                        orderCmd.Parameters.AddWithValue("@BookTitle", bookTitle);
+                                        orderCmd.Parameters.AddWithValue("@BookId", bookId);
                                         orderCmd.Parameters.AddWithValue("@TotalPrice", price);
                                         orderCmd.Parameters.AddWithValue("@PaymentMethod", rdoCredit.Checked ? "Credit" : "Debit");
 

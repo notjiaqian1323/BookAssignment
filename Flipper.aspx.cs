@@ -13,12 +13,27 @@ namespace BookAssignment
         {
             if (!IsPostBack)
             {
-                LoadBookContent();
+                if (Request.QueryString["BookId"] != null)
+                {
+                    int bookId;
+                    if (int.TryParse(Request.QueryString["BookId"], out bookId))
+                    {
+                        LoadBookContent(bookId);
+                    }
+                    else
+                    {
+                        lblTitle.Text = "Invalid Book ID.";
+                    }
+                }
+                else
+                {
+                    lblTitle.Text = "No Book Selected.";
+                }
             }
         }
 
-        private void LoadBookContent() {
-            string bookId = Request.QueryString["bookId"];
+        private void LoadBookContent(int bookId) {
+            
         }
     }
 }

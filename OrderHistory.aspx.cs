@@ -36,10 +36,21 @@ namespace OnlineBookStore
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT OrderID, BookTitle, TotalPrice, PaymentMethod, OrderDate 
-                               FROM Orders 
-                               WHERE UserID = @UserID 
-                               ORDER BY OrderDate DESC";
+                string query = @"
+            SELECT 
+                o.OrderID,
+                b.Title AS BookTitle,
+                o.TotalPrice,
+                o.PaymentMethod,
+                o.OrderDate
+            FROM 
+                Orders o
+            INNER JOIN 
+                Books b ON o.BookID = b.BookID
+            WHERE 
+                o.UserID = @UserID
+            ORDER BY 
+                o.OrderDate DESC;";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
