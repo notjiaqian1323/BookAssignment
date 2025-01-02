@@ -132,6 +132,7 @@
     <Content Include="Admin\Customers.css" />
     <Content Include="Admin\Customers.js" />
     <Content Include="Admin\ProductDetails.aspx" />
+    <Content Include="Admin\ProductRedesign.js" />
     <Content Include="Admin\Products.css" />
     <Content Include="Admin\Products.js" />
     <Content Include="Admin\ProductsRedesign.aspx" />
@@ -141,6 +142,7 @@
     <Content Include="Admin\Customers.aspx" />
     <Content Include="Admin\Reports.aspx" />
     <Content Include="Admin\AdminHeader.ascx" />
+    <Content Include="Admin\UserDetails.aspx" />
     <Content Include="App_Data\Books.mdf" />
     <Content Include="App_Data\Books_log.ldf">
       <DependentUpon>Books.mdf</DependentUpon>
@@ -169,6 +171,7 @@
     <Content Include="Images\light-mode.png" />
     <Content Include="Images\menu-icon.png" />
     <Content Include="Images\more.png" />
+    <Content Include="Images\profile-img.png" />
     <Content Include="Images\right-arrow.png" />
     <Content Include="Images\zoom-in.png" />
     <Content Include="Images\zoom-out.png" />
@@ -307,6 +310,13 @@
     </Compile>
     <Compile Include="Admin\AdminHeader.ascx.designer.cs">
       <DependentUpon>AdminHeader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UserDetails.aspx.cs">
+      <DependentUpon>UserDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UserDetails.aspx.designer.cs">
+      <DependentUpon>UserDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="BookCatalog.aspx.cs">
       <DependentUpon>BookCatalog.aspx</DependentUpon>
