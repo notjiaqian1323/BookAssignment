@@ -157,7 +157,7 @@
                             <span class="order-number">Order #<%# Eval("OrderID") %></span>
                         </div>
                         <div class="order-details">
-                            <div class="book-title"><%# Eval("BookTitle") %></div>
+                            <div class="book-title"><%# Eval("BookTitles") %></div>
                             <div class="order-meta">
                                 <div class="meta-item">
                                     <i class="fas fa-calendar icon"></i>

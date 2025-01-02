@@ -112,12 +112,36 @@ namespace OnlineBookstore
 
                 using (var connection = new SqlConnection(connectionString))
                 {
+                    connection.Open();
+                    // Step 1: Check if the user has already purchased this book
+                    string checkPurchaseQuery = @"
+                SELECT COUNT(1) 
+                FROM Orders o
+                JOIN OrderDetails od ON o.OrderID = od.OrderID
+                WHERE o.UserId = @UserId 
+                AND od.BookId = @BookId";
+                    
+
+                    using (var checkCmd = new SqlCommand(checkPurchaseQuery, connection))
+                    {
+                        checkCmd.Parameters.AddWithValue("@UserId", userId);
+                        checkCmd.Parameters.AddWithValue("@BookId", bookId);
+
+                        int purchaseCount = (int)checkCmd.ExecuteScalar();
+
+                        if (purchaseCount > 0)
+                        {
+                            return "<i class=\"fa-solid fa-circle-xmark\"></i> You have already purchased this book!";
+                        }
+                    }
+
+
                     string getBookQuery = @"
                 SELECT Title, Genre, Description, ImageUrl, Price 
                 FROM Books 
                 WHERE BookId = @BookId";
 
-                    connection.Open();
+                    
                     var command = new SqlCommand(getBookQuery, connection);
                     command.Parameters.AddWithValue("@BookId", bookId);
 

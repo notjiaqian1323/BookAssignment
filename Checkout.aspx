@@ -220,7 +220,7 @@
                             <asp:RadioButton ID="rdoCredit" runat="server" GroupName="PaymentType" 
                                 Text="Credit Card" />
                             <asp:RadioButton ID="rdoDebit" runat="server" GroupName="PaymentType" 
-                                Text="Debit Card" />
+                                Text="Paypal" />
                         </div>
 
                         <!-- Credit Card Fields -->

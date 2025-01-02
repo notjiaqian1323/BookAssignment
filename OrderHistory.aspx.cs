@@ -18,7 +18,7 @@ namespace OnlineBookStore
             if (Session["UserID"] == null)
             {
                 // 如果用户未登录，重定向到登录页面
-                Response.Redirect("CustomerLogin.aspx");
+                Response.Redirect("Login.aspx");
                 return;
             }
 
@@ -30,31 +30,26 @@ namespace OnlineBookStore
 
         private void LoadOrderHistory()
         {
-            // 从Session中获取当前登录用户的ID
-            int userID = Convert.ToInt32(Session["UserID"]);
+            int userId = Convert.ToInt32(Session["UserId"]);
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringA"].ToString();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-            SELECT 
-                o.OrderID,
-                b.Title AS BookTitle,
-                o.TotalPrice,
-                o.PaymentMethod,
-                o.OrderDate
-            FROM 
-                Orders o
-            INNER JOIN 
-                Books b ON o.BookID = b.BookID
-            WHERE 
-                o.UserID = @UserID
-            ORDER BY 
-                o.OrderDate DESC;";
+            SELECT o.OrderID, 
+                   o.OrderDate, 
+                   o.PaymentMethod, 
+                   o.TotalPrice,
+                   STRING_AGG(od.Title, ', ') as BookTitles  -- 使用当前数据库中的实际列名
+            FROM Orders o
+            JOIN OrderDetails od ON o.OrderID = od.OrderID
+            WHERE o.UserId = @UserId
+            GROUP BY o.OrderID, o.OrderDate, o.PaymentMethod, o.TotalPrice
+            ORDER BY o.OrderDate DESC";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@UserID", userID);
+                    cmd.Parameters.AddWithValue("@UserId", userId);
 
                     DataTable dt = new DataTable();
                     conn.Open();
@@ -121,97 +116,129 @@ namespace OnlineBookStore
             }
         }
 
-        private void GenerateInvoice(int orderID)
+        protected void GenerateInvoice(int orderID)
         {
-            // 确保用户已登录
-            if (Session["UserID"] == null)
-            {
-                Response.Redirect("Login.aspx");
-                return;
-            }
-
-            int userID = Convert.ToInt32(Session["UserID"]);
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringA"].ToString();
             StringBuilder invoiceHtml = new StringBuilder();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT o.OrderID, o.BookTitle, o.TotalPrice, 
-                               o.PaymentMethod, o.OrderDate
-                               FROM Orders o
-                               WHERE o.OrderID = @OrderID AND o.UserID = @UserID";
+                // 首先获取订单和客户信息
+                string orderQuery = @"
+            SELECT o.OrderID, 
+                   o.OrderDate, 
+                   o.PaymentMethod, 
+                   o.TotalPrice,
+                   u.Name as CustomerName,
+                   u.Email as CustomerEmail
+            FROM Orders o
+            JOIN Users u ON o.UserId = u.Id
+            WHERE o.OrderID = @OrderID AND o.UserId = @UserId";
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                // 然后获取订单详情
+                string detailsQuery = @"
+            SELECT b.Title,
+                   od.Price
+            FROM OrderDetails od
+            JOIN Books b ON od.BookId = b.BookId
+            WHERE od.OrderID = @OrderID
+            ORDER BY b.Title";
+
+                using (SqlCommand orderCmd = new SqlCommand(orderQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@OrderID", orderID);
-                    cmd.Parameters.AddWithValue("@UserID", userID);
-                    conn.Open();
+                    orderCmd.Parameters.AddWithValue("@OrderID", orderID);
+                    orderCmd.Parameters.AddWithValue("@UserId", Convert.ToInt32(Session["UserId"]));
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    conn.Open();
+                    using (SqlDataReader orderReader = orderCmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        if (orderReader.Read())
                         {
-                            // 生成发票HTML
+                            // 生成发票 HTML 头部
+                            invoiceHtml.Append("<!DOCTYPE html>");
                             invoiceHtml.Append("<html><head>");
                             invoiceHtml.Append("<style>");
                             invoiceHtml.Append(@"
-                                body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-                                .invoice { max-width: 800px; margin: 0 auto; padding: 20px; border: 1px solid #eee; }
-                                .header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #eee; }
-                                .details { margin: 20px 0; }
-                                .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
-                                .info-label { font-weight: bold; color: #666; }
-                                .table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-                                .table th { background: #f8f9fa; }
-                                .table th, .table td { padding: 12px; border: 1px solid #ddd; text-align: left; }
-                                .total { text-align: right; margin-top: 20px; padding-top: 20px; border-top: 2px solid #eee; }
-                                .total h3 { color: #2563eb; margin: 0; }
-                            ");
-                            invoiceHtml.Append("</style></head><body>");
-                            invoiceHtml.Append("<div class='invoice'>");
+                        body { font-family: Arial, sans-serif; margin: 40px; }
+                        .invoice-header { text-align: center; margin-bottom: 30px; }
+                        .customer-info { margin-bottom: 20px; }
+                        .info-label { font-weight: bold; }
+                        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+                        .price-column { text-align: right; }
+                        .total { text-align: right; margin-top: 20px; font-weight: bold; }
+                    ");
+                            invoiceHtml.Append("</style>");
+                            invoiceHtml.Append("</head><body>");
 
-                            // 发票头部
-                            invoiceHtml.Append("<div class='header'>");
-                            invoiceHtml.Append("<h1>Online Book Store</h1>");
-                            invoiceHtml.Append("<h2>Invoice</h2>");
+                            // 发票标题
+                            invoiceHtml.Append("<div class='invoice-header'>");
+                            invoiceHtml.Append("<h1>INVOICE</h1>");
+                            invoiceHtml.Append($"<p>Order #: {orderReader["OrderID"]}</p>");
+                            invoiceHtml.Append($"<p>Date: {Convert.ToDateTime(orderReader["OrderDate"]).ToString("dd/MM/yyyy HH:mm")}</p>");
                             invoiceHtml.Append("</div>");
 
-                            // 发票详情
-                            invoiceHtml.Append("<div class='details'>");
-                            invoiceHtml.Append("<div class='info-row'>");
-                            invoiceHtml.Append($"<div><span class='info-label'>Order ID:</span> {reader["OrderID"]}</div>");
-                            invoiceHtml.Append($"<div><span class='info-label'>Date:</span> {Convert.ToDateTime(reader["OrderDate"]).ToString("dd/MM/yyyy HH:mm")}</div>");
-                            invoiceHtml.Append("</div>");
-                            invoiceHtml.Append("<div class='info-row'>");
-                            invoiceHtml.Append($"<div><span class='info-label'>Payment Method:</span> {reader["PaymentMethod"]}</div>");
+                            // 客户信息
+                            invoiceHtml.Append("<div class='customer-info'>");
+                            invoiceHtml.Append($"<div><span class='info-label'>Customer Name:</span> {orderReader["CustomerName"]}</div>");
+                            invoiceHtml.Append($"<div><span class='info-label'>Email:</span> {orderReader["CustomerEmail"]}</div>");
+                            invoiceHtml.Append($"<div><span class='info-label'>Payment Method:</span> {orderReader["PaymentMethod"]}</div>");
                             invoiceHtml.Append("</div>");
 
-                            // 商品详情表格
-                            invoiceHtml.Append("<table class='table'>");
+                            // 商品详情表格头部
+                            invoiceHtml.Append("<table>");
                             invoiceHtml.Append("<thead>");
-                            invoiceHtml.Append("<tr><th>Item Description</th><th>Price</th></tr>");
+                            invoiceHtml.Append("<tr><th>Book Title</th><th class='price-column'>Price (RM)</th></tr>");
                             invoiceHtml.Append("</thead><tbody>");
-                            invoiceHtml.Append($"<tr><td>{reader["BookTitle"]}</td><td>RM {Convert.ToDecimal(reader["TotalPrice"]):F2}</td></tr>");
-                            invoiceHtml.Append("</tbody></table>");
 
-                            // 总计
-                            invoiceHtml.Append("<div class='total'>");
-                            invoiceHtml.Append($"<h3>Total Amount: RM {Convert.ToDecimal(reader["TotalPrice"]):F2}</h3>");
-                            invoiceHtml.Append("</div>");
+                            // 关闭第一个reader
+                            orderReader.Close();
 
-                            invoiceHtml.Append("</div></div>");
+                            // 获取并显示订单详情
+                            using (SqlCommand detailsCmd = new SqlCommand(detailsQuery, conn))
+                            {
+                                detailsCmd.Parameters.AddWithValue("@OrderID", orderID);
+                                using (SqlDataReader detailsReader = detailsCmd.ExecuteReader())
+                                {
+                                    while (detailsReader.Read())
+                                    {
+                                        invoiceHtml.Append("<tr>");
+                                        invoiceHtml.Append($"<td>{detailsReader["Title"]}</td>");
+                                        invoiceHtml.Append($"<td class='price-column'>{Convert.ToDecimal(detailsReader["Price"]):F2}</td>");
+                                        invoiceHtml.Append("</tr>");
+                                    }
+                                }
+                            }
 
-                            // 添加页脚
+                            // 重新执行订单查询以获取总价
+                            using (SqlCommand totalCmd = new SqlCommand(orderQuery, conn))
+                            {
+                                totalCmd.Parameters.AddWithValue("@OrderID", orderID);
+                                totalCmd.Parameters.AddWithValue("@UserId", Convert.ToInt32(Session["UserId"]));
+                                using (SqlDataReader totalReader = totalCmd.ExecuteReader())
+                                {
+                                    if (totalReader.Read())
+                                    {
+                                        invoiceHtml.Append("</tbody></table>");
+
+                                        // 总计
+                                        invoiceHtml.Append("<div class='total'>");
+                                        invoiceHtml.Append($"<h3>Total Amount: RM {Convert.ToDecimal(totalReader["TotalPrice"]):F2}</h3>");
+                                        invoiceHtml.Append("</div>");
+                                    }
+                                }
+                            }
+
+                            // 页脚
                             invoiceHtml.Append("<div style='text-align: center; margin-top: 40px; color: #666; font-size: 0.875rem;'>");
                             invoiceHtml.Append("<p>Thank you for shopping with Online Book Store</p>");
-                            invoiceHtml.Append($"<p>Generated on {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}</p>");
+                            invoiceHtml.Append($"<p>Generated on {DateTime.Now:dd/MM/yyyy HH:mm}</p>");
                             invoiceHtml.Append("</div>");
 
                             invoiceHtml.Append("</body></html>");
                         }
                         else
                         {
-                            // 如果找不到订单或订单不属于当前用户
                             Response.Write("<script>alert('Order not found or unauthorized access');</script>");
                             return;
                         }
@@ -219,7 +246,7 @@ namespace OnlineBookStore
                 }
             }
 
-            // 设置响应头和输出invoice（保持原有代码不变）
+            // 设置响应头和输出发票
             Response.Clear();
             Response.Buffer = true;
             Response.ContentType = "text/html";

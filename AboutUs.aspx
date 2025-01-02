@@ -5,6 +5,10 @@
     <title>About Us - Mopulah</title>
     <link rel="stylesheet" type="text/css" href="Style.css" />
     <style>
+        form#form1{
+            background-color:transparent;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;

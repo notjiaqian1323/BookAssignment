@@ -86,10 +86,16 @@ namespace BookAssignment.Admin
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = @"
-                    SELECT o.OrderID, o.UserID, u.Name AS UserName, o.PaymentMethod, o.OrderDate
+                    SELECT 
+                        o.OrderID, 
+                        o.UserID, 
+                        u.Name AS UserName, 
+                        o.PaymentMethod, 
+                        o.OrderDate
                     FROM Orders o
+                    INNER JOIN OrderDetails od ON o.OrderID = od.OrderID
                     INNER JOIN [User] u ON o.UserID = u.Id
-                    WHERE o.BookID = @BookID
+                    WHERE od.BookID = @BookID
                     ORDER BY o.OrderDate DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))

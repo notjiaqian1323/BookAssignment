@@ -35,7 +35,7 @@ namespace BookAssignment
                 {
                     string query = @"
                 SELECT b.ImageUrl, b.Title, o.BookID
-                FROM Orders o
+                FROM OrderDetails o
                 INNER JOIN Books b ON o.BookID = b.BookId
                 WHERE o.UserID = @UserID";
 

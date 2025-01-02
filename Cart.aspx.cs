@@ -13,7 +13,7 @@ namespace OnlineBookstore
         {
             if (Session["UserId"] == null)
             {
-                Response.Redirect("SelectRole.aspx?ReturnUrl=Cart.aspx");
+                Response.Redirect("CustomerLogin.aspx?ReturnUrl=Cart.aspx");
                 return;
             }
 
@@ -33,6 +33,7 @@ namespace OnlineBookstore
             {
                 string query = @"
             SELECT CartID,
+                   BookId,
                    ImageUrl, 
                    Title, 
                    Price 
@@ -58,13 +59,12 @@ namespace OnlineBookstore
                             .Sum(row => Convert.ToDecimal(row["Price"]));
 
                         lblSubtotal.Text = subtotal.ToString("F2");
-                        decimal shipping = 10;
-                        lblTotal.Text = (subtotal + shipping).ToString("F2");
+                        lblTotal.Text = subtotal.ToString("F2");
                     }
                     else
                     {
                         lblSubtotal.Text = "0.00";
-                        lblTotal.Text = "10.00";
+                        lblTotal.Text = "0.00";
                     }
                 }
             }
@@ -74,11 +74,10 @@ namespace OnlineBookstore
         private void UpdateTotal(decimal discount)
         {
             decimal subtotal = CalculateSubtotal();
-            decimal shipping = 10;
+            decimal shipping = 0;
             decimal total = subtotal + shipping - discount;
 
             lblSubtotal.Text = subtotal.ToString("F2");
-            lblShipping.Text = shipping.ToString("F2");
             lblTotal.Text = total.ToString("F2");
         }
 
@@ -104,38 +103,46 @@ namespace OnlineBookstore
 
         protected void btnCheckout_Click(object sender, EventArgs e)
         {
-
             DataTable selectedItems = new DataTable();
+            selectedItems.Columns.Add("BookId", typeof(int));
             selectedItems.Columns.Add("ImageUrl", typeof(string));
             selectedItems.Columns.Add("Title", typeof(string));
             selectedItems.Columns.Add("Price", typeof(decimal));
 
+            bool hasSelectedItems = false;
 
             foreach (GridViewRow row in gvCart.Rows)
             {
                 CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
                 if (chkSelect != null && chkSelect.Checked)
                 {
-
+                    hasSelectedItems = true;
                     Image imgBook = (Image)row.FindControl("imgBook");
                     string imageUrl = imgBook != null ? imgBook.ImageUrl : "";
 
+                    HiddenField hdnBookId = (HiddenField)row.FindControl("hdnBookId");
+                    int bookId = Convert.ToInt32(hdnBookId.Value);
 
-                    string title = row.Cells[2].Text;
-
+                    // 修改这里：使用 Label 控件来获取标题
+                    Label lblTitle = (Label)row.FindControl("lblTitle");
+                    string title = lblTitle != null ? lblTitle.Text : "";
 
                     Label lblPrice = (Label)row.FindControl("lblPrice");
-                    decimal price = decimal.Parse(lblPrice.Text.Replace("RM", "").Trim());
+                    string priceText = lblPrice.Text.Replace("RM", "").Trim();
+                    decimal price = decimal.Parse(priceText);
 
-
-                    selectedItems.Rows.Add(imageUrl, title, price);
+                    selectedItems.Rows.Add(bookId, imageUrl, title, price);
                 }
             }
 
+            if (!hasSelectedItems)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(),
+                    "alert", "alert('Please select at least one book to checkout');", true);
+                return;
+            }
 
             Session["SelectedItems"] = selectedItems;
-
-
             Response.Redirect("Checkout.aspx");
         }
 
@@ -161,7 +168,7 @@ namespace OnlineBookstore
 
             lblSubtotal.Text = subtotal.ToString("F2");
             decimal shipping = 10;
-            lblTotal.Text = (subtotal + shipping).ToString("F2");
+            lblTotal.Text = (subtotal ).ToString("F2");
         }
 
         protected void gvCart_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -234,7 +241,7 @@ namespace OnlineBookstore
                 }
             }
 
-            decimal shipping = 10;
+            decimal shipping = 0;
             decimal total = subtotal + shipping;
 
             lblSubtotal.Text = subtotal.ToString("F2");

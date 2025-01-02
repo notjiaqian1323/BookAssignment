@@ -122,11 +122,11 @@
                 <Columns>
                     <asp:TemplateField>
                         <ItemTemplate>
+                            <asp:HiddenField ID="hdnBookId" runat="server" Value='<%# Eval("BookId") %>' />
                             <asp:CheckBox ID="chkSelect" runat="server" AutoPostBack="true" 
                                 OnCheckedChanged="chkSelect_CheckedChanged" onclick="updateCheckoutButton()" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:Image ID="imgBook" runat="server" 
@@ -163,7 +163,6 @@
             <div class="cart-summary">
                 <br />
                 <p>Subtotal: RM <asp:Label ID="lblSubtotal" runat="server" Text="0"></asp:Label></p>
-                <p>Shipping: RM <asp:Label ID="lblShipping" runat="server" Text="10"></asp:Label></p>
                 <p>Total (Tax Included): RM <asp:Label ID="lblTotal" runat="server" Text="0"></asp:Label></p>
                 <asp:Button ID="btnCheckout" runat="server" Text="Checkout" 
                     CssClass="checkout-btn" OnClick="btnCheckout_Click" />

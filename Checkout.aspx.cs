@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.UI;
 using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.UI;
+using System.Linq;
 
 namespace OnlineBookStore
 {
@@ -12,7 +11,6 @@ namespace OnlineBookStore
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // 验证用户是否登录
             if (Session["UserID"] == null)
             {
                 Response.Redirect("Login.aspx");
@@ -28,48 +26,37 @@ namespace OnlineBookStore
 
         private void LoadCartItems()
         {
-            int userId = Convert.ToInt32(Session["UserID"]);
-            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringA"].ToString();
+            // 获取 Session 中的已选商品
+            DataTable selectedItems = Session["SelectedItems"] as DataTable;
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            if (selectedItems != null && selectedItems.Rows.Count > 0)
             {
-                conn.Open();
-                string query = @"SELECT Title, Price, ImageUrl, COUNT(*) as Quantity 
-                               FROM Cart 
-                               WHERE UserID = @UserID 
-                               GROUP BY Title, Price, ImageUrl";
+                gvOrderSummary.DataSource = selectedItems;
+                gvOrderSummary.DataBind();
+                Session["OrderSummary"] = selectedItems;
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@UserID", userId);
-
-                    DataTable dt = new DataTable();
-                    dt.Load(cmd.ExecuteReader());
-
-                    gvOrderSummary.DataSource = dt;
-                    gvOrderSummary.DataBind();
-                    Session["OrderSummary"] = dt;
-                }
+                // 计算并显示小计
+                decimal subtotal = selectedItems.AsEnumerable()
+                    .Sum(row => Convert.ToDecimal(row["Price"]));
+                lblSubtotals.Text = $"RM {subtotal:F2}";
+                lblTotals.Text = $"RM {subtotal:F2}"; // 初始总额等于小计
+            }
+            else
+            {
+                // 如果没有选中的商品，重定向回购物车页面
+                Response.Redirect("Cart.aspx");
             }
         }
 
         private decimal CalculateSubtotal()
         {
-            int userId = Convert.ToInt32(Session["UserID"]);
-            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringA"].ToString();
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            DataTable selectedItems = Session["OrderSummary"] as DataTable;
+            if (selectedItems != null)
             {
-                conn.Open();
-                string query = "SELECT SUM(Price) FROM Cart WHERE UserID = @UserID";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@UserID", userId);
-                    object result = cmd.ExecuteScalar();
-                    return result != DBNull.Value ? Convert.ToDecimal(result) : 0m;
-                }
+                return selectedItems.AsEnumerable()
+                    .Sum(row => Convert.ToDecimal(row["Price"]));
             }
+            return 0m;
         }
 
         private void UpdateTotal(decimal discount)
@@ -115,7 +102,7 @@ namespace OnlineBookStore
             {
                 int userId = Convert.ToInt32(Session["UserID"]);
                 SaveOrders(userId);
-                ClearUserCart(userId);
+                ClearSelectedItemsFromCart(userId); // 保留这行，作为额外的清理机制
                 Response.Redirect("PaymentSuccessful.aspx");
             }
             catch (Exception ex)
@@ -135,43 +122,61 @@ namespace OnlineBookStore
                 {
                     try
                     {
-                        // 获取购物车中的所有商品
-                        string cartQuery = @"SELECT BookId, Price 
-                                          FROM Cart 
-                                          WHERE UserID = @UserID";
-
-                        using (SqlCommand cartCmd = new SqlCommand(cartQuery, conn, transaction))
+                        DataTable selectedItems = Session["SelectedItems"] as DataTable;
+                        if (selectedItems != null && selectedItems.Rows.Count > 0)
                         {
-                            cartCmd.Parameters.AddWithValue("@UserID", userId);
-                            using (SqlDataReader reader = cartCmd.ExecuteReader())
+                            decimal totalPrice = selectedItems.AsEnumerable()
+                                .Sum(row => Convert.ToDecimal(row["Price"]));
+
+                            string orderQuery = @"
+                        INSERT INTO Orders (UserId, TotalPrice, PaymentMethod, OrderDate)
+                        VALUES (@UserId, @TotalPrice, @PaymentMethod, GETDATE());
+                        SELECT SCOPE_IDENTITY();";
+
+                            int orderId;
+                            using (SqlCommand orderCmd = new SqlCommand(orderQuery, conn, transaction))
                             {
-                                while (reader.Read())
+                                orderCmd.Parameters.AddWithValue("@UserId", userId);
+                                orderCmd.Parameters.AddWithValue("@TotalPrice", totalPrice);
+                                orderCmd.Parameters.AddWithValue("@PaymentMethod", rdoCredit.Checked ? "Credit" : "Paypal");
+                                orderId = Convert.ToInt32(orderCmd.ExecuteScalar());
+                            }
+
+                            string detailQuery = @"
+                        INSERT INTO OrderDetails (OrderID, BookID, Title, Price)
+                        VALUES (@OrderID, @BookID, @BookTitle, @Price)";
+
+                            foreach (DataRow row in selectedItems.Rows)
+                            {
+                                using (SqlCommand detailCmd = new SqlCommand(detailQuery, conn, transaction))
                                 {
-                                    int bookId = Convert.ToInt32(reader["BookId"]);
-                                    decimal price = Convert.ToDecimal(reader["Price"]);
+                                    detailCmd.Parameters.AddWithValue("@OrderID", orderId);
+                                    detailCmd.Parameters.AddWithValue("@BookID", Convert.ToInt32(row["BookId"]));
+                                    detailCmd.Parameters.AddWithValue("@BookTitle", row["Title"]);
+                                    detailCmd.Parameters.AddWithValue("@Price", Convert.ToDecimal(row["Price"]));
+                                    detailCmd.ExecuteNonQuery();
+                                }
+                            }
 
-                                    // 为每本书创建一个订单记录
-                                    string orderQuery = @"INSERT INTO Orders 
-                                                        (UserID, BookID, TotalPrice, PaymentMethod, OrderDate) 
-                                                        VALUES 
-                                                        (@UserID, @BookId, @TotalPrice, @PaymentMethod, GETDATE())";
+                            string deleteCartQuery = @"
+                        DELETE FROM Cart 
+                        WHERE BookId = @BookId AND UserId = @UserId";
 
-                                    using (SqlCommand orderCmd = new SqlCommand(orderQuery, conn, transaction))
-                                    {
-                                        orderCmd.Parameters.AddWithValue("@UserID", userId);
-                                        orderCmd.Parameters.AddWithValue("@BookId", bookId);
-                                        orderCmd.Parameters.AddWithValue("@TotalPrice", price);
-                                        orderCmd.Parameters.AddWithValue("@PaymentMethod", rdoCredit.Checked ? "Credit" : "Debit");
-
-                                        orderCmd.ExecuteNonQuery();
-                                    }
+                            foreach (DataRow row in selectedItems.Rows)
+                            {
+                                using (SqlCommand deleteCmd = new SqlCommand(deleteCartQuery, conn, transaction))
+                                {
+                                    deleteCmd.Parameters.AddWithValue("@BookId", Convert.ToInt32(row["BookId"]));
+                                    deleteCmd.Parameters.AddWithValue("@UserId", userId);
+                                    deleteCmd.ExecuteNonQuery();
                                 }
                             }
                         }
 
                         transaction.Commit();
+                        Session["SelectedItems"] = null;
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
                         throw;
@@ -180,18 +185,28 @@ namespace OnlineBookStore
             }
         }
 
-        private void ClearUserCart(int userId)
+        private void ClearSelectedItemsFromCart(int userId)
         {
+            DataTable selectedItems = Session["SelectedItems"] as DataTable;
+            if (selectedItems == null || selectedItems.Rows.Count == 0) return;
+
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringA"].ToString();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "DELETE FROM Cart WHERE UserID = @UserID";
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                foreach (DataRow row in selectedItems.Rows)
                 {
-                    cmd.Parameters.AddWithValue("@UserID", userId);
-                    cmd.ExecuteNonQuery();
+                    int bookId = Convert.ToInt32(row["BookId"]);
+
+                    string query = "DELETE FROM Cart WHERE UserID = @UserID AND BookId = @BookId";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", userId);
+                        cmd.Parameters.AddWithValue("@BookId", bookId);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        System.Diagnostics.Debug.WriteLine($"Backup cleanup: BookId={bookId}, UserID={userId}, Rows affected={rowsAffected}");
+                    }
                 }
             }
         }
