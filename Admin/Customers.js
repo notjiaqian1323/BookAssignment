@@ -2,7 +2,7 @@
     button.addEventListener("click", function () {
         const userId = this.getAttribute("data-id");
 
-        fetch(`Customers.aspx?userId=${userId}`)
+        fetch(`CustomersRedesign.aspx?userId=${userId}`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById("userDetailsContent").innerHTML = `
