@@ -5,7 +5,7 @@ for (var i = 0; i < arrow.length; i++) {
         let arrowParent = e.target.parentElement.parentElement;
         console.log(arrowParent);
         arrowParent.classList.toggle("showMenu");
-    })   
+    })
 }
 
 let sidebar = document.querySelector(".sidebar");

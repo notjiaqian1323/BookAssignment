@@ -131,18 +131,15 @@
     <Content Include="Admin\AdminNavigation.ascx" />
     <Content Include="Admin\Customers.css" />
     <Content Include="Admin\Customers.js" />
+    <Content Include="Admin\CustomersRedesign.aspx" />
+    <Content Include="Admin\DashboardRedesign.aspx" />
     <Content Include="Admin\ProductDetails.aspx" />
     <Content Include="Admin\ProductRedesign.js" />
-    <Content Include="Admin\Products.css" />
-    <Content Include="Admin\Products.js" />
     <Content Include="Admin\ProductsRedesign.aspx" />
     <Content Include="Admin\ProductsRedesign.css" />
     <Content Include="Admin\Reporting.css" />
-    <Content Include="Admin\Products.aspx" />
-    <Content Include="Admin\Customers.aspx" />
     <Content Include="Admin\Reports.aspx" />
     <Content Include="Admin\AdminHeader.ascx" />
-    <Content Include="Admin\UserDetails.aspx" />
     <Content Include="App_Data\Books.mdf" />
     <Content Include="App_Data\Books_log.ldf">
       <DependentUpon>Books.mdf</DependentUpon>
@@ -269,26 +266,26 @@
     <Compile Include="Admin\AdminNavigation.ascx.designer.cs">
       <DependentUpon>AdminNavigation.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\CustomersRedesign.aspx.cs">
+      <DependentUpon>CustomersRedesign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\CustomersRedesign.aspx.designer.cs">
+      <DependentUpon>CustomersRedesign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\DashboardRedesign.aspx.cs">
+      <DependentUpon>DashboardRedesign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\DashboardRedesign.aspx.designer.cs">
+      <DependentUpon>DashboardRedesign.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\ProductDetails.aspx.cs">
       <DependentUpon>ProductDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\ProductDetails.aspx.designer.cs">
       <DependentUpon>ProductDetails.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Products.aspx.cs">
-      <DependentUpon>Products.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Products.aspx.designer.cs">
-      <DependentUpon>Products.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Customers.aspx.cs">
-      <DependentUpon>Customers.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Customers.aspx.designer.cs">
-      <DependentUpon>Customers.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ProductsRedesign.aspx.cs">
       <DependentUpon>ProductsRedesign.aspx</DependentUpon>
@@ -310,13 +307,6 @@
     </Compile>
     <Compile Include="Admin\AdminHeader.ascx.designer.cs">
       <DependentUpon>AdminHeader.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\UserDetails.aspx.cs">
-      <DependentUpon>UserDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\UserDetails.aspx.designer.cs">
-      <DependentUpon>UserDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="BookCatalog.aspx.cs">
       <DependentUpon>BookCatalog.aspx</DependentUpon>

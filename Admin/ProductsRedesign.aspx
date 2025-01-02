@@ -19,12 +19,9 @@
         <section class="home-section">
             <div class="home-content">
                 <i class='bx bx-menu' ></i>
-                <span class="text">Drop Down Sidebar</span>
+                <span class="text">Products</span>
             </div>
              <div class="main-container">
-     <div class="main-title">
-         <h2>PRODUCTS</h2>
-     </div>
      <div class="data-container">
 
          <asp:Label ID="lblErrorMessage" runat="server" CssClass="error-message" Visible="false"></asp:Label>

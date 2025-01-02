@@ -1,21 +1,19 @@
-﻿// TOGGLE SIDEBAR
-
-var sideBarOpen = false;
-var sidebar = document.querySelector("#sidebar");
-
-function openSidebar() {
-    if (!sideBarOpen) {
-        sidebar.classList.add("sidebar-responsive");
-        sideBarOpen = true;
-    }
+﻿let arrow = document.querySelectorAll(".arrow");
+console.log(arrow);
+for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e) => {
+        let arrowParent = e.target.parentElement.parentElement;
+        console.log(arrowParent);
+        arrowParent.classList.toggle("showMenu");
+    })
 }
 
-function closeSidebar() {
-    if (sideBarOpen) {
-        sidebar.classList.remove("sidebar-responsive");
-        sideBarOpen = false;
-    }    
-}
+let sidebar = document.querySelector(".sidebar");
+let sidebarbtn = document.querySelector(".bx-menu");
+console.log(sidebarbtn);
+sidebarbtn.addEventListener("click", () => {
+    sidebar.classList.toggle("close");
+});
 
 
 // CHARTS

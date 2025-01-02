@@ -11,7 +11,7 @@ namespace BookAssignment.Admin
 {
 
 
-    public partial class WebForm2
+    public partial class DashboardRedesign
     {
 
         /// <summary>
@@ -24,30 +24,12 @@ namespace BookAssignment.Admin
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// adminHeader control.
+        /// admSide control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::BookAssignment.Admin.WebUserControl1 adminHeader;
-
-        /// <summary>
-        /// lblMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
-
-        /// <summary>
-        /// lvUsers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView lvUsers;
+        protected global::BookAssignment.Admin.AdminNavigation admSide;
     }
 }

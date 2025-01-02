@@ -7,11 +7,10 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Xml.Linq;
 
 namespace BookAssignment.Admin
 {
-    public partial class WebForm2 : System.Web.UI.Page
+    public partial class CustomersRedesign : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace BookAssignment.Admin
 {
-    public partial class UserDetails : System.Web.UI.Page
+    public partial class DashboardRedesign : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
