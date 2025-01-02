@@ -39,16 +39,10 @@
                          <asp:Label ID="lblBookName" runat="server" Text='<%# Eval("Title") %>' CssClass="book-title"></asp:Label>
                          <asp:Label ID="lblBookDesc" runat="server" Text='<%# Eval("Description") %>' CssClass="book-desc"></asp:Label>
                          <asp:Label ID="lblPrice" runat="server" Text='<%# Eval("Price", "{0:C}") %>' CssClass="book-price"></asp:Label>
-                         <button type="button" class="btn-details" 
-                             data-id='<%# Eval("BookId") %>' 
-                             data-title='<%# Eval("Title") %>' 
-                             data-description='<%# Eval("Description") %>' 
-                             data-genre='<%# Eval("Genre") %>' 
-                             data-price='<%# Eval("Price") %>' 
-                             data-author='<%# Eval("Author") %>'
-                             data-image='<%# Eval("ImageUrl") %>'>
-                             View Details
-                         </button>
+                        <button type="button" class="btn-details"
+                            onclick="redirectToDetails('<%# Eval("BookID") %>')">
+                            View Details
+                        </button>
                      </div>
 
                      <!-- Action Buttons -->
@@ -90,6 +84,12 @@
     </form>
     <script src="ProductRedesign.js">
 
+    </script>
+
+    <script type="text/javascript">
+        function redirectToDetails(bookId) {
+            window.location.href = 'ProductDetails.aspx?BookId=' + bookId;
+        }
     </script>
 </body>
 </html>

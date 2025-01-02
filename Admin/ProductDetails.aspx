@@ -9,6 +9,7 @@
     <!--External CSS-->
     <link rel="stylesheet" type="text/css" href="ProductsRedesign.css"/>
     <link rel="stylesheet" type="text/css" href="Reporting.css"/>
+    <link rel="stylesheet" type="text/css" href="ProductDetails.css" />
 
     <!--Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
@@ -27,7 +28,45 @@
                 <span class="text">Product Details</span>
             </div>
              <div class="main-container">
-                
+                <div class="product-details">
+                    <img id="imgBook" runat="server" class="product-image" />
+                    <div class="book-details">
+                        <h2 id="lblTitle" runat="server"></h2>
+                        <p id="lblDescription" runat="server"></p>
+                        <p><strong>Genre:</strong> <span id="lblGenre" runat="server"></span></p>
+                        <p><strong>Author:</strong> <span id="lblAuthor" runat="server"></span></p>
+                        <p><strong>Price:</strong> <span id="lblPrice" runat="server"></span></p>
+                    </div>
+                </div>
+              <div class="order-details">
+                    <h3>Recently Ordered By:</h3>
+                    <asp:Repeater ID="rptOrderDetails" runat="server">
+                        <HeaderTemplate>
+                            <div class="order-header">
+                                <span>User ID</span>
+                                <span>User Name</span>
+                                <span>Payment Method</span>
+                                <span>Order Date</span>
+                                <span>Order ID</span>
+                            </div>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <div class="order-item">
+                                <span><%# Eval("UserID") %></span>
+                                <span><%# Eval("UserName") %></span>
+                                <span><%# Eval("PaymentMethod") %></span>
+                                <span><%# Convert.ToDateTime(Eval("OrderDate")).ToString("dd/MM/yyyy HH:mm") %></span>
+                                <span><%# Eval("OrderID") %></span>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+
+
+                    <!-- Empty Orders Message -->
+                    <asp:Panel ID="pnlNoOrders" runat="server" Visible="false">
+                        <div class="order-empty">No one has purchased this product yet.</div>
+                    </asp:Panel>
+                </div>
              </div>
         </section>
     </form>

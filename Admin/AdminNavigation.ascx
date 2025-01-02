@@ -30,7 +30,7 @@
         </li>
         <li>
             <div class="iocn-link">
-                <a href="#">
+                <a href="ProductsRedesign.aspx">
                     <i class='bx bxs-book' ></i>
                     <span class="link_name">Products</span>
                 </a>

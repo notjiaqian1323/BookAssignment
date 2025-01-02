@@ -36,7 +36,7 @@ namespace OnlineBookStore
             if (IsValidAdmin(email, password))
             {
                 // Redirect to the admin dashboard
-                Response.Redirect("Admin/Dashboard.aspx");
+                Response.Redirect("Admin/DashboardRedesign.aspx");
             }
             else
             {

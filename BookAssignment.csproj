@@ -134,6 +134,8 @@
     <Content Include="Admin\CustomersRedesign.aspx" />
     <Content Include="Admin\DashboardRedesign.aspx" />
     <Content Include="Admin\ProductDetails.aspx" />
+    <Content Include="Admin\ProductDetails.css" />
+    <Content Include="Admin\ProductDetails.js" />
     <Content Include="Admin\ProductRedesign.js" />
     <Content Include="Admin\ProductsRedesign.aspx" />
     <Content Include="Admin\ProductsRedesign.css" />
