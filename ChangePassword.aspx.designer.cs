@@ -24,6 +24,15 @@ namespace OnlineBookStore
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// pgHead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::BookAssignment.WebUserControl1 pgHead;
+
+        /// <summary>
         /// lblPasswordMessage control.
         /// </summary>
         /// <remarks>
@@ -94,5 +103,14 @@ namespace OnlineBookStore
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnChangePassword;
+
+        /// <summary>
+        /// pgFooter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::BookAssignment.WebUserControl2 pgFooter;
     }
 }

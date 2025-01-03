@@ -1,21 +1,8 @@
 ﻿/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #0abab5;
-    background-image: url('Wallpapers/profilewall.gif');
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
 
-form {
+.profile {
     width: 100%;
-    max-width: 400px;
     background: #ffffff;
-    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -34,7 +21,7 @@ label {
     color: #555555;
 }
 
-input[type="text"], input[type="email"], .aspNetDisabled {
+#txtName, #txtEmail, .aspNetDisabled {
     width: calc(100% - 20px);
     padding: 8px 10px;
     margin-bottom: 15px;
@@ -43,7 +30,7 @@ input[type="text"], input[type="email"], .aspNetDisabled {
     font-size: 14px;
 }
 
-    input[type="text"]:focus, input[type="email"]:focus {
+    #txtName:focus, #txtEmail:focus {
         border-color: #007bff;
         outline: none;
     }

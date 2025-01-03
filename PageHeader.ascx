@@ -2,8 +2,6 @@
 
         <!--Header-->
         <div class="top">
-
-            <img class="bookstore-logo"  src="Wallpapers/bookstorelogo.jpg"/>
             <span class="toptitle"><a href="HomePage.aspx">Mopulah</a></span>
 
             <!--Search Bar-->
