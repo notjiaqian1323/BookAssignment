@@ -46,12 +46,12 @@
 
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionStringA %>" SelectCommand="SELECT * FROM [Books]"></asp:SqlDataSource>
 
-        <!--Fiction Section-->
+        <!--Fantasy Section-->
         <div class="fiction-section section">
-            <span class="sect-title">Fiction</span>
+            <span class="sect-title">Fantasy</span>
             <span class="sect-desc">Latest Bestsellers</span>
             <div class="books">
-                <asp:Repeater ID="rptBookFiction" runat="server">
+                <asp:Repeater ID="rptBookFantasy" runat="server">
                     <ItemTemplate>
                         <div class="book">
                             <img src='<%# Eval("ImageUrl") %>' />
@@ -65,10 +65,10 @@
 
         <!--Non-Fiction Section-->
         <div class="nfiction-section section">
-            <span class="sect-title">Non Fiction</span>
+            <span class="sect-title">Mystery</span>
             <span class="sect-desc">Latest Bestsellers</span>
             <div class="books">
-                <asp:Repeater ID="rptBooknFiction" runat="server">
+                <asp:Repeater ID="rptBookMystery" runat="server">
                     <ItemTemplate>
                         <div class="book">
                             <img src='<%# Eval("ImageUrl") %>' />
@@ -81,10 +81,42 @@
 
         <!--Promotion Section-->
         <div class="promo-section section">
-            <span class="sect-title">Promo for All!</span>
-            <span class="sect-desc">(20% OFF for Members Only) *Sign up for FREE today!</span>
+            <span class="sect-title">Romance</span>
+            <span class="sect-desc">Latest Bestsellers</span>
             <div class="books">
-                <asp:Repeater ID="rptBookPromo" runat="server">
+                <asp:Repeater ID="rptBookRomance" runat="server">
+                    <ItemTemplate>
+                        <div class="book">
+                            <img src='<%# Eval("ImageUrl") %>' />
+                            <span class="book-title"><%# Eval("Title") %></span>
+                            <span class="price-lbl">RM<%# Eval("Price", "{0:0.00}") %></span></div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </div>
+
+                <!--Promotion Section-->
+        <div class="promo-section section">
+            <span class="sect-title">Science Fiction</span>
+            <span class="sect-desc">Latest Bestsellers</span>
+            <div class="books">
+                <asp:Repeater ID="rptBookScience" runat="server">
+                    <ItemTemplate>
+                        <div class="book">
+                            <img src='<%# Eval("ImageUrl") %>' />
+                            <span class="book-title"><%# Eval("Title") %></span>
+                            <span class="price-lbl">RM<%# Eval("Price", "{0:0.00}") %></span></div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </div>
+
+                <!--Promotion Section-->
+        <div class="promo-section section">
+            <span class="sect-title">Comedy</span>
+            <span class="sect-desc">Latest Bestsellers</span>
+            <div class="books">
+                <asp:Repeater ID="rptBookComedy" runat="server">
                     <ItemTemplate>
                         <div class="book">
                             <img src='<%# Eval("ImageUrl") %>' />

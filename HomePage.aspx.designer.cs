@@ -42,31 +42,49 @@ namespace BookAssignment
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
 
         /// <summary>
-        /// rptBookFiction control.
+        /// rptBookFantasy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptBookFiction;
+        protected global::System.Web.UI.WebControls.Repeater rptBookFantasy;
 
         /// <summary>
-        /// rptBooknFiction control.
+        /// rptBookMystery control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptBooknFiction;
+        protected global::System.Web.UI.WebControls.Repeater rptBookMystery;
 
         /// <summary>
-        /// rptBookPromo control.
+        /// rptBookRomance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptBookPromo;
+        protected global::System.Web.UI.WebControls.Repeater rptBookRomance;
+
+        /// <summary>
+        /// rptBookScience control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptBookScience;
+
+        /// <summary>
+        /// rptBookComedy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptBookComedy;
 
         /// <summary>
         /// pgFooter control.

@@ -32,7 +32,7 @@ form {
 
 .top {
     display: flex;
-    justify-content: space-between; /* Space elements evenly with minimal gaps */
+     /* Space elements evenly with minimal gaps */
     align-items: center; /* Vertically align items in the center */
     gap: 20px; /* Set a consistent gap between elements */
     width: 100%;
@@ -41,6 +41,10 @@ form {
     box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
+.bookstore-logo {
+    width: 50px;
+    height: 50px;
+}
 
 .search-box {
     border:0;

@@ -31,5 +31,32 @@ namespace BookAssignment.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::BookAssignment.Admin.AdminNavigation admSide;
+
+        /// <summary>
+        /// imgBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl imgBox;
+
+        /// <summary>
+        /// topSellingTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl topSellingTitle;
+
+        /// <summary>
+        /// rptNewUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptNewUsers;
     }
 }

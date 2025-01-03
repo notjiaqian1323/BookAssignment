@@ -7,7 +7,7 @@
         <div class="img-container">
             <img src="../Wallpapers/bookstorelogo.jpg"/>
         </div>
-        <span class="logo-name">Mopular</span>
+        <span class="logo-name">Mopulah</span>
     </div>
     <ul class="nav-links">
         <li>

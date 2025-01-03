@@ -63,12 +63,11 @@
 
 .main-cards {
     display:grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 1fr;
     gap: 20px;
     margin: 20px 0;
-    height: 250px;
+    height: 350px;
     overflow: hidden;
-    padding-right: 20px;
 }
 
 .card {
@@ -80,11 +79,7 @@
 }
 
     .card:first-child {
-        background-color: #2962ff;
-    }
-
-    .card:nth-child(2) {
-        background-color: #ff6d00;
+        background-color: #263043;
     }
 
 .card-inner {

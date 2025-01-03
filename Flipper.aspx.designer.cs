@@ -11,7 +11,7 @@ namespace BookAssignment
 {
 
 
-    public partial class WebForm8
+    public partial class Flipper
     {
 
         /// <summary>
@@ -24,30 +24,21 @@ namespace BookAssignment
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// txtPage control.
+        /// bookTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPage;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bookTitle;
 
         /// <summary>
-        /// lblTitle control.
+        /// bookContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitle;
-
-        /// <summary>
-        /// pagePlaceholder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder pagePlaceholder;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bookContent;
     }
 }

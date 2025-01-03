@@ -132,8 +132,8 @@ namespace OnlineBookStore
                    u.Name as CustomerName,
                    u.Email as CustomerEmail
             FROM Orders o
-            JOIN Users u ON o.UserId = u.Id
-            WHERE o.OrderID = @OrderID AND o.UserId = @UserId";
+            JOIN [User] u ON o.UserID = u.Id
+            WHERE o.OrderID = @OrderID AND o.UserID = @UserId";
 
                 // 然后获取订单详情
                 string detailsQuery = @"
@@ -159,19 +159,108 @@ namespace OnlineBookStore
                             invoiceHtml.Append("<html><head>");
                             invoiceHtml.Append("<style>");
                             invoiceHtml.Append(@"
-                        body { font-family: Arial, sans-serif; margin: 40px; }
-                        .invoice-header { text-align: center; margin-bottom: 30px; }
-                        .customer-info { margin-bottom: 20px; }
-                        .info-label { font-weight: bold; }
-                        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-                        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
-                        .price-column { text-align: right; }
-                        .total { text-align: right; margin-top: 20px; font-weight: bold; }
-                    ");
+                                body { 
+                                    font-family: Arial, sans-serif; 
+                                    background-color: #f5f5f5;
+                                    margin: 0;
+                                    padding: 40px;
+                                    min-height: 100vh;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: flex-start;
+                                }
+
+                                .invoice-container {
+                                    background: white;
+                                    width: 100%;
+                                    max-width: 800px;
+                                    margin: 0 auto;
+                                    padding: 40px;
+                                    border-radius: 12px;
+                                    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+                                }
+
+                                .invoice-header {
+                                    text-align: center;
+                                    margin-bottom: 30px;
+                                    padding-bottom: 20px;
+                                    border-bottom: 2px solid #eee;
+                                }
+
+                                .invoice-header h1 {
+                                    font-size: 28px;
+                                    color: #2c3e50;
+                                    margin-bottom: 10px;
+                                }
+
+                                .customer-info {
+                                    margin-bottom: 30px;
+                                    padding: 20px;
+                                    background: #f8f9fa;
+                                    border-radius: 8px;
+                                }
+
+                                .info-label {
+                                    font-weight: bold;
+                                    color: #2c3e50;
+                                    display: inline-block;
+                                    width: 140px;
+                                }
+
+                                table {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    margin: 20px 0;
+                                }
+
+                                th, td {
+                                    padding: 12px;
+                                    text-align: left;
+                                    border-bottom: 1px solid #eee;
+                                }
+
+                                th {
+                                    background-color: #f8f9fa;
+                                    color: #2c3e50;
+                                    font-weight: 600;
+                                }
+
+                                .price-column {
+                                    text-align: right;
+                                }
+
+                                .total {
+                                    text-align: right;
+                                    margin-top: 20px;
+                                    padding-top: 20px;
+                                    border-top: 2px solid #eee;
+                                }
+
+                                .total h3 {
+                                    color: #2c3e50;
+                                    font-size: 18px;
+                                    margin: 0;
+                                }
+
+                                .footer {
+                                    text-align: center;
+                                    margin-top: 40px;
+                                    padding-top: 20px;
+                                    border-top: 1px solid #eee;
+                                    color: #666;
+                                    font-size: 14px;
+                                }
+
+                                .footer p {
+                                    margin: 5px 0;
+                                }
+                            ");
                             invoiceHtml.Append("</style>");
                             invoiceHtml.Append("</head><body>");
 
-                            // 发票标题
+                            // 修改HTML结构
+                            invoiceHtml.Append("<div class='invoice-container'>");
+                            // 发票内容开始
                             invoiceHtml.Append("<div class='invoice-header'>");
                             invoiceHtml.Append("<h1>INVOICE</h1>");
                             invoiceHtml.Append($"<p>Order #: {orderReader["OrderID"]}</p>");
@@ -185,11 +274,12 @@ namespace OnlineBookStore
                             invoiceHtml.Append($"<div><span class='info-label'>Payment Method:</span> {orderReader["PaymentMethod"]}</div>");
                             invoiceHtml.Append("</div>");
 
-                            // 商品详情表格头部
+                            // 商品表格
                             invoiceHtml.Append("<table>");
                             invoiceHtml.Append("<thead>");
                             invoiceHtml.Append("<tr><th>Book Title</th><th class='price-column'>Price (RM)</th></tr>");
                             invoiceHtml.Append("</thead><tbody>");
+
 
                             // 关闭第一个reader
                             orderReader.Close();
@@ -230,9 +320,11 @@ namespace OnlineBookStore
                             }
 
                             // 页脚
-                            invoiceHtml.Append("<div style='text-align: center; margin-top: 40px; color: #666; font-size: 0.875rem;'>");
+                            invoiceHtml.Append("<div class='footer'>");
                             invoiceHtml.Append("<p>Thank you for shopping with Online Book Store</p>");
                             invoiceHtml.Append($"<p>Generated on {DateTime.Now:dd/MM/yyyy HH:mm}</p>");
+                            invoiceHtml.Append("</div>");
+
                             invoiceHtml.Append("</div>");
 
                             invoiceHtml.Append("</body></html>");

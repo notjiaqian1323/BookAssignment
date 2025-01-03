@@ -1,58 +1,29 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Flipper.aspx.cs" Inherits="BookAssignment.WebForm8" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Flipper.aspx.cs" Inherits="BookAssignment.Flipper" %>
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link rel="stylesheet" type="text/css" href="Flip.css" />
-    <title></title>
+    <title>Flipper</title>
+    <link rel="stylesheet" type="text/css" href="Style.css" />
+    <script type="text/javascript">
+        // Function to change background color of the form
+        function changeBackgroundColor() {
+            var color = document.getElementById("colorPicker").value;
+            document.getElementById("form1").style.backgroundColor = color;
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
+        <div class="flipper-container">
+            <!-- Color Picker and Button -->
+<div class="color-picker">
+    <label for="colorPicker">Choose Background Color: </label>
+    <input type="color" id="colorPicker" value="#ffffff" onchange="changeBackgroundColor()" />
+</div>
 
-        <div class="book-header">
-            <div class="left">
-                <img src="Images/menu-icon.png" id="menu-icon"/>
-            </div>
-            <div class="mid">
-                <img src="Images/zoom-out.png" id="zoom-out" />
-                <img src="Images/zoom-in.png" id="zoom-in" />
-                <asp:TextBox ID="txtPage" runat="server" CssClass="pg-txt" Width="37px">1</asp:TextBox>
-                <span> of 12</span>
-                <button><img src="Images/search-icon.png"/></button>
-            </div>
-            <div class="right">
-                <img src="Images/light-mode.png"/>
-                <img src="Images/dark-mode.png"/>
-            </div>
-        </div>
-
-        <div class="book-sidebar-chpt">
-
-        </div>
-
-        <div class="flipbook">
-            <div class="hard"><asp:Label ID="lblTitle" runat="server"></asp:Label> <small>~ HankTheTank</small></div>
-            <div class="hard"></div>
-            <div>
-                <small>Lets look at some Amazing Pokemon</small>
-                <small>Gotta catch'em all</small>
-            </div>
-            
-            <asp:PlaceHolder ID="pagePlaceholder" runat="server"></asp:PlaceHolder>
-
-            <div class="hard"></div>
-            <div class="hard">Thank you <small>~ HankTheTank</small></div>
-        </div>
-
-        <div class="book-controls">
-
+            <h2 id="bookTitle" runat="server"></h2>
+            <div id="bookContent" class="content-area" runat="server"></div>
         </div>
     </form>
-    <script src="jquery.js"></script>
-    <script src="turn.js"></script>
-    <script>
-        $(".flipbook").turn();
-    </script>
 </body>
 </html>

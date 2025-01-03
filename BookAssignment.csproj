@@ -132,6 +132,7 @@
     <Content Include="Admin\Customers.css" />
     <Content Include="Admin\Customers.js" />
     <Content Include="Admin\CustomersRedesign.aspx" />
+    <Content Include="Admin\Dashboard.css" />
     <Content Include="Admin\DashboardRedesign.aspx" />
     <Content Include="Admin\ProductDetails.aspx" />
     <Content Include="Admin\ProductDetails.css" />
@@ -157,9 +158,11 @@
     <Content Include="BookDetails.aspx" />
     <Content Include="BookDetails.css" />
     <Content Include="Cart.aspx" />
+    <Content Include="Cart.css" />
     <Content Include="ChangePassword.aspx" />
     <Content Include="ChangePassword.css" />
     <Content Include="Checkout.aspx" />
+    <Content Include="Checkout.css" />
     <Content Include="CustomerLogin.aspx" />
     <Content Include="CustomerLogin.css" />
     <Content Include="Database1.mdf" />
@@ -180,6 +183,7 @@
     <Content Include="Images\zoom-out.png" />
     <Content Include="jquery.js" />
     <Content Include="OrderHistory.aspx" />
+    <Content Include="OrderHistory.css" />
     <Content Include="PaymentSuccessful.aspx" />
     <Content Include="ProfilePic\defaultpic.png" />
     <Content Include="Reader.js" />

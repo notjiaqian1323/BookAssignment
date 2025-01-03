@@ -34,11 +34,12 @@ namespace BookAssignment
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = @"
-                SELECT b.ImageUrl, b.Title, o.BookID
-                FROM OrderDetails o
-                INNER JOIN Books b ON o.BookID = b.BookId
-                INNER JOIN Orders od ON o.OrderID = od.OrderID
-                WHERE o.UserID = @UserID";
+        SELECT b.ImageUrl, b.Title, od.BookID
+        FROM OrderDetails od
+        INNER JOIN Orders o ON od.OrderID = o.OrderID
+        INNER JOIN Books b ON od.BookID = b.BookId
+        WHERE o.UserID = @UserID
+        ORDER BY o.OrderDate DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -51,6 +52,7 @@ namespace BookAssignment
                         }
                     }
                 }
+
 
                 // Render the books dynamically
                 StringBuilder sb = new StringBuilder();

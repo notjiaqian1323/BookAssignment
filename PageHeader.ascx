@@ -3,7 +3,8 @@
         <!--Header-->
         <div class="top">
 
-            <span class="toptitle"><a href="HomePage.aspx">BookStore</a></span>
+            <img class="bookstore-logo"  src="Wallpapers/bookstorelogo.jpg"/>
+            <span class="toptitle"><a href="HomePage.aspx">Mopulah</a></span>
 
             <!--Search Bar-->
             <div class="search">
@@ -31,16 +32,7 @@
         <!--Nav links-->
         <div class="nav-bar">
             <ul class="nav-item">
-                <span><a href="BookCatalog.aspx">Bestsellers</a></span>
-                <img src="Images/nav-down.png" class="nav-down" />
-            </ul>
-            <ul class="nav-item">
-                <span><a href="BookCatalog.aspx">Fiction</a></span>
-                <img src="Images/nav-down.png" class="nav-down" />
-            </ul>
-            <ul class="nav-item">
-                <span><a href="BookCatalog.aspx">Non-Fiction</a></span>
-                <img src="Images/nav-down.png" class="nav-down" />
+                <span><a href="BookCatalog.aspx">Book Catalog</a></span>
             </ul>
             <ul class="nav-item dropdown">
                 <span>My Account</span>

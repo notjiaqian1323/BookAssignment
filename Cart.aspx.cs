@@ -53,6 +53,9 @@ namespace OnlineBookstore
                     gvCart.DataBind();
                     Session["Cart"] = dt;
 
+                    // 根据购物车是否有商品来控制Select All的显示
+                    selectAllContainer.Visible = dt.Rows.Count > 0;
+
                     if (dt.Rows.Count > 0)
                     {
                         decimal subtotal = dt.AsEnumerable()
@@ -60,11 +63,13 @@ namespace OnlineBookstore
 
                         lblSubtotal.Text = subtotal.ToString("F2");
                         lblTotal.Text = subtotal.ToString("F2");
+                        emptyCartPanel.Visible = false;
                     }
                     else
                     {
                         lblSubtotal.Text = "0.00";
                         lblTotal.Text = "0.00";
+                        emptyCartPanel.Visible = true;
                     }
                 }
             }
@@ -123,7 +128,6 @@ namespace OnlineBookstore
                     HiddenField hdnBookId = (HiddenField)row.FindControl("hdnBookId");
                     int bookId = Convert.ToInt32(hdnBookId.Value);
 
-                    // 修改这里：使用 Label 控件来获取标题
                     Label lblTitle = (Label)row.FindControl("lblTitle");
                     string title = lblTitle != null ? lblTitle.Text : "";
 
@@ -167,7 +171,7 @@ namespace OnlineBookstore
 
 
             lblSubtotal.Text = subtotal.ToString("F2");
-            decimal shipping = 10;
+            decimal shipping = 0;
             lblTotal.Text = (subtotal ).ToString("F2");
         }
 
@@ -246,6 +250,36 @@ namespace OnlineBookstore
 
             lblSubtotal.Text = subtotal.ToString("F2");
             lblTotal.Text = total.ToString("F2");
+        }
+
+        protected void chkSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            decimal subtotal = 0;
+            bool isChecked = chkSelectAll.Checked;
+
+            foreach (GridViewRow row in gvCart.Rows)
+            {
+                CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
+                if (chkSelect != null)
+                {
+                    chkSelect.Checked = isChecked;
+                }
+
+                if (isChecked)
+                {
+                    Label lblPrice = row.FindControl("lblPrice") as Label;
+                    if (lblPrice != null)
+                    {
+                        if (decimal.TryParse(lblPrice.Text.Replace("RM", "").Trim(), out decimal price))
+                        {
+                            subtotal += price;
+                        }
+                    }
+                }
+            }
+
+            lblSubtotal.Text = subtotal.ToString("F2");
+            lblTotal.Text = subtotal.ToString("F2");
         }
 
     }

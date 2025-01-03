@@ -31,27 +31,39 @@ namespace OnlineBookstore
             RenderBooks(books);
         }
 
-        private List<Book> GetBooksByGenre(string genre)
+        private List<Book> GetBooksByGenre(string genre, string sortOption = "")
         {
             var books = new List<Book>();
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringA"].ConnectionString;
 
             using (var connection = new SqlConnection(connectionString))
             {
-                string query;
-                SqlCommand command;
-
-                if (string.IsNullOrEmpty(genre))
+                string query = "SELECT * FROM Books";
+                if (!string.IsNullOrEmpty(genre))
                 {
-                    // If no genre is selected, get all books
-                    query = "SELECT * FROM Books";
-                    command = new SqlCommand(query, connection);
+                    query += " WHERE Genre = @Genre";
                 }
-                else
+
+                // Append sorting based on the selected option
+                switch (sortOption)
                 {
-                    // Get books of selected genre
-                    query = "SELECT * FROM Books WHERE Genre = @Genre";
-                    command = new SqlCommand(query, connection);
+                    case "LowToHigh":
+                        query += " ORDER BY Price ASC";
+                        break;
+                    case "HighToLow":
+                        query += " ORDER BY Price DESC";
+                        break;
+                    case "AtoZ":
+                        query += " ORDER BY Title ASC";
+                        break;
+                    case "ZtoA":
+                        query += " ORDER BY Title DESC";
+                        break;
+                }
+
+                var command = new SqlCommand(query, connection);
+                if (!string.IsNullOrEmpty(genre))
+                {
                     command.Parameters.AddWithValue("@Genre", genre);
                 }
 
@@ -93,6 +105,26 @@ namespace OnlineBookstore
             }
         }
 
+        protected void ddlPriceFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Reset the title filter dropdown to its default
+            ddlTitleFilter.SelectedIndex = 0;
+
+            string selectedPriceOption = ddlPriceFilter.SelectedItem.Value;
+            var books = GetBooksByGenre(ddlGenres.SelectedItem.Value, selectedPriceOption);
+            RenderBooks(books);
+        }
+
+        protected void ddlTitleFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Reset the price filter dropdown to its default
+            ddlPriceFilter.SelectedIndex = 0;
+
+            string selectedTitleOption = ddlTitleFilter.SelectedItem.Value;
+            var books = GetBooksByGenre(ddlGenres.SelectedItem.Value, selectedTitleOption);
+            RenderBooks(books);
+        }
+
 
         [WebMethod]
         [ScriptMethod(UseHttpGet = false)]
@@ -105,7 +137,7 @@ namespace OnlineBookstore
             {
                 if (HttpContext.Current.Session["UserId"] == null)
                 {
-                    return "<i class=\"fa-solid fa-circle-xmark\"></i> Please log in or register a new account first to add to the shopping cart.";
+                    return "<i class=\"fa-solid fa-circle-xmark\"></i> Please log in first to add to the shopping cart.";
                 }
 
                 int userId = Convert.ToInt32(HttpContext.Current.Session["UserId"]);
@@ -193,6 +225,7 @@ namespace OnlineBookstore
                 return "<i class=\"fa-solid fa-circle-xmark\"></i>" + ex.Message;
             }
         }
+
 
 
         public class Book

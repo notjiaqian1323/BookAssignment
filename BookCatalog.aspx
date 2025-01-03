@@ -52,17 +52,31 @@
                 );
             }
 
-        </script>
+        </script> 
         <div class="genre-selector">
-            <asp:DropDownList ID="ddlGenres" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlGenres_SelectedIndexChanged">
-                <asp:ListItem Text="Select Genre" Value="" />
-                <asp:ListItem Text="Fantasy" Value="Fantasy" />
-                <asp:ListItem Text="Mystery" Value="Mystery" />
-                <asp:ListItem Text="Romance" Value="Romance" />
-                <asp:ListItem Text="Science Fiction" Value="Science Fiction" />
-                <asp:ListItem Text="Comedy" Value="Comedy" />
-            </asp:DropDownList>
-        </div>
+                <asp:DropDownList ID="ddlGenres" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlGenres_SelectedIndexChanged">
+                    <asp:ListItem Text="Select Genre" Value="" />
+                    <asp:ListItem Text="Fantasy" Value="Fantasy" />
+                    <asp:ListItem Text="Mystery" Value="Mystery" />
+                    <asp:ListItem Text="Romance" Value="Romance" />
+                    <asp:ListItem Text="Science Fiction" Value="Science Fiction" />
+                    <asp:ListItem Text="Comedy" Value="Comedy" />
+                </asp:DropDownList>
+                <asp:DropDownList ID="ddlTitleFilter" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlTitleFilter_SelectedIndexChanged">
+                    <asp:ListItem Text="Sort by Title" Value="" />
+                    <asp:ListItem Text="A to Z" Value="AtoZ" />
+                </asp:DropDownList>
+                <asp:DropDownList ID="ddlPriceFilter" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlPriceFilter_SelectedIndexChanged">
+                    <asp:ListItem Text="Sort by Price" Value="" />
+                    <asp:ListItem Text="Low to High" Value="LowToHigh" />
+                    <asp:ListItem Text="High to Low" Value="HighToLow" />
+                </asp:DropDownList>
+          
+           
+            </div>
+            <div class="price-sort"> </div>
+            <div class="title-sort"> </div>
+        
         <div id="bookContainer" class="book-container" runat="server"></div>
         <asp:Label ID="lblMessage" runat="server" ForeColor="Green" Font-Bold="true" />
         <div id="toast-container"></div>

@@ -1,0 +1,84 @@
+﻿.users-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* No vertical gaps */
+    margin-top: 20px;
+}
+
+.user-row {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    padding: 10px 5px;
+    margin: 0; /* No extra margins */
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.users-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.users-name {
+    font-weight: bold;
+    margin: 0;
+}
+
+.user-date {
+    font-size: 0.9em;
+    color: #888;
+    margin: 0;
+}
+
+.card .card-inner img {
+    width: 120px;
+    height: 180px;
+}
+
+.img-box {
+    position: relative;
+    width: 200px;
+    height: 300px;
+    background-color: rgb(0,0,0);
+    overflow: hidden;
+    display: flex;  
+    justify-content:center;
+    border-radius: 20px;
+    align-items: center;
+}
+
+    .img-box::before {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 140%;
+        background-color: white;
+        box-shadow: 0 0 20px rgb(8,8,8);
+        animation: animate 4s linear infinite;
+    }
+
+    .img-box::after {
+        content: '';
+        position: absolute;
+        inset: 10px;
+        background: var(--dynamic-bg, url("../Images/default.jpg"));
+        background-size: cover;
+        border-radius: 16px;
+    }
+
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
