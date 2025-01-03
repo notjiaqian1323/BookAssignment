@@ -9,6 +9,7 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="Bookshelf.css" />
     <link rel="stylesheet" type="text/css" href="Style.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
 </head>
 <body>
     <form id="form1" runat="server">

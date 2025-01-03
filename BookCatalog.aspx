@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BookCatalog.aspx.cs" Inherits="OnlineBookstore.BookCatalog" %>
 <%@ Register TagPrefix="Page" TagName="Header" Src="~/PageHeader.ascx" %>
+<%@ Register TagPrefix="Page" TagName="Footer" Src="~/PageFooter.ascx" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
@@ -7,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="Style.css" />
     <link rel="stylesheet" href="BookCatalog.css" />
     <script src="https://kit.fontawesome.com/637a048940.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -80,6 +83,8 @@
         <div id="bookContainer" class="book-container" runat="server"></div>
         <asp:Label ID="lblMessage" runat="server" ForeColor="Green" Font-Bold="true" />
         <div id="toast-container"></div>
+
+        <Page:Footer ID="pgFooter" runat="server"/> 
         <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />
     </form>
 </body>

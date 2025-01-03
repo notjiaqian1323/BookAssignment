@@ -6,6 +6,7 @@
 <head runat="server">
     <link rel="stylesheet" type="text/css" href="Style.css" />
     <link rel="stylesheet" type="text/css" href="Search.css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
     <title>Search Results</title>
 </head>
 <body>

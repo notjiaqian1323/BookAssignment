@@ -88,9 +88,6 @@
                 Thank you for choosing Mopulah as your trusted online bookstore. Together, let's turn every page into an 
                 adventure!
             </p>
-            <div class="footer">
-                © 2024 Mopulah. All rights reserved.
-            </div>
         </div>
     </form>
 </body>

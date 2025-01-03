@@ -7,7 +7,7 @@
             <!--Search Bar-->
             <div class="search">
                 <asp:ImageButton ID="SearchButton" runat="server" ImageUrl="~/Images/search-icon.png" AlternateText="Search" CssClass="search-icon" OnClick="SearchButton_Click" />
-                <asp:TextBox runat="server" CssClass="search-box" ID="txtSearchBox" Placeholder="Title, Author, Keyword"/>
+                <asp:TextBox runat="server" CssClass="search-box" ID="txtSearchBox" Placeholder="Title, Keyword"/>
             </div>
 
             <!--Login-->

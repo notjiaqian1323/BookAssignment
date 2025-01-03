@@ -8,7 +8,7 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="Style.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
-
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
 </head>
 <body>
     <form id="form1" runat="server">

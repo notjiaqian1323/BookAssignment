@@ -1,5 +1,6 @@
 ﻿
 
+@import url('bookshelf.css');
 #card-area {
     padding: 20px 0;
 }
@@ -16,7 +17,6 @@
     margin-top: 20px;
     white-space: nowrap;
     overflow-x: auto;
-    width: fit-content;
 }
 
 .box {
@@ -50,9 +50,8 @@
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    font-size: 14px;
+    font-size: 8px;
     transition: height 0.5s;
-    padding: 0 15px;
 }
 
     .overlay h3 {
