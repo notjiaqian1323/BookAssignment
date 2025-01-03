@@ -53,7 +53,7 @@
             <div class="books">
                 <asp:Repeater ID="rptBookFantasy" runat="server">
                     <ItemTemplate>
-                        <div class="book">
+                        <div class="book" onclick="redirectToBookDetails(<%# Eval("BookId") %>)">
                             <img src='<%# Eval("ImageUrl") %>' />
                             <span class="book-title"><%# Eval("Title") %></span>
                             <span class="price-lbl">RM<%# Eval("Price", "{0:0.00}") %></span>
@@ -61,6 +61,7 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
+
         </div>
 
         <!--Non-Fiction Section-->
@@ -70,7 +71,7 @@
             <div class="books">
                 <asp:Repeater ID="rptBookMystery" runat="server">
                     <ItemTemplate>
-                        <div class="book">
+                        <div class="book" onclick="redirectToBookDetails(<%# Eval("BookId") %>)">
                             <img src='<%# Eval("ImageUrl") %>' />
                             <span class="book-title"><%# Eval("Title") %></span>
                             <span class="price-lbl">RM<%# Eval("Price", "{0:0.00}") %></span></div>
@@ -86,7 +87,7 @@
             <div class="books">
                 <asp:Repeater ID="rptBookRomance" runat="server">
                     <ItemTemplate>
-                        <div class="book">
+                        <div class="book" onclick="redirectToBookDetails(<%# Eval("BookId") %>)">
                             <img src='<%# Eval("ImageUrl") %>' />
                             <span class="book-title"><%# Eval("Title") %></span>
                             <span class="price-lbl">RM<%# Eval("Price", "{0:0.00}") %></span></div>
@@ -102,7 +103,7 @@
             <div class="books">
                 <asp:Repeater ID="rptBookScience" runat="server">
                     <ItemTemplate>
-                        <div class="book">
+                        <div class="book" onclick="redirectToBookDetails(<%# Eval("BookId") %>)">
                             <img src='<%# Eval("ImageUrl") %>' />
                             <span class="book-title"><%# Eval("Title") %></span>
                             <span class="price-lbl">RM<%# Eval("Price", "{0:0.00}") %></span></div>
@@ -118,7 +119,7 @@
             <div class="books">
                 <asp:Repeater ID="rptBookComedy" runat="server">
                     <ItemTemplate>
-                        <div class="book">
+                        <div class="book" onclick="redirectToBookDetails(<%# Eval("BookId") %>)">
                             <img src='<%# Eval("ImageUrl") %>' />
                             <span class="book-title"><%# Eval("Title") %></span>
                             <span class="price-lbl">RM<%# Eval("Price", "{0:0.00}") %></span></div>
@@ -131,5 +132,15 @@
 
     </form>
     <script src="Homepage.js"></script>
+    <script>
+        function redirectToBookDetails(bookId) {
+            if (bookId) {
+                window.location.href = `BookDetails.aspx?BookId=${bookId}`;
+            } else {
+                console.error("BookID is undefined or invalid.");
+            }
+        }
+
+    </script>
 </body>
 </html>

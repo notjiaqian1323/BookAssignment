@@ -53,7 +53,7 @@ namespace OnlineBookstore
                     gvCart.DataBind();
                     Session["Cart"] = dt;
 
-                    // 根据购物车是否有商品来控制Select All的显示
+                     
                     selectAllContainer.Visible = dt.Rows.Count > 0;
 
                     if (dt.Rows.Count > 0)

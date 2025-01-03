@@ -40,7 +40,6 @@
                 <li><a class="link_name" href="#">Products</a></li>
                 <li><a href="ProductsRedesign.aspx">View Products</a></li>
                 <li><a href="ProductDetails.aspx">Product Details</a></li>
-                <li><a href="AddProduct.aspx">Add Products</a></li>
             </ul>
         </li>
         <li>

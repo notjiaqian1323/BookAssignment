@@ -31,7 +31,7 @@ namespace BookAssignment
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                SELECT Title, ImageUrl, Price
+                SELECT *
                 FROM Books
                 WHERE Genre = @Genre
                 ORDER BY Title";
