@@ -33,6 +33,15 @@ namespace OnlineBookstore
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
+        /// SiteMapDataSource1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SiteMapDataSource SiteMapDataSource1;
+
+        /// <summary>
         /// lblErrorMessage control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace OnlineBookstore
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrorMessage;
+
+        /// <summary>
+        /// siteMapPath control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SiteMapPath siteMapPath;
 
         /// <summary>
         /// bookDetailsDiv control.

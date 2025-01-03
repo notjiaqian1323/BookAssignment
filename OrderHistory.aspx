@@ -1,14 +1,35 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OrderHistory.aspx.cs" Inherits="OnlineBookStore.OrderHistory" %>
+<%@ Register TagPrefix="Page" TagName="Header" Src="~/PageHeader.ascx" %>
+<%@ Register TagPrefix="Page" TagName="Footer" Src="~/PageFooter.ascx" %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Order History</title>
      <link rel="stylesheet" type="text/css" href="OrderHistory.css" />
+    <link rel="stylesheet" type="text/css" href="Style.css" />
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body>
     <form id="form1" runat="server">
+        <Page:Header ID="pgHead" runat="server"/>
+
+            <asp:SiteMapDataSource 
+            ID="SiteMapDataSource1" 
+            runat="server" 
+            ShowStartingNode="false" 
+            SiteMapProvider="XmlSiteMapProvider" />
+
+
         <div class="order-history-container">
+                            <div class="breadcrumb-container">
+                    <asp:SiteMapPath ID="siteMapPath" runat="server" DataSourceID="SiteMapDataSource1" PathSeparator=">">
+                        <CurrentNodeStyle CssClass="breadcrumb-current" />
+                        <NodeStyle CssClass="breadcrumb-node" />
+                        <RootNodeStyle CssClass="breadcrumb-root" />
+                    </asp:SiteMapPath>
+                </div>
+
             <div class="order-history-title">
                 Order History
             </div>
@@ -52,6 +73,7 @@
                 </ItemTemplate>
             </asp:Repeater>
         </div>
+        <Page:Footer ID="pgFooter" runat="server"/> 
     </form>
 </body>
 </html>

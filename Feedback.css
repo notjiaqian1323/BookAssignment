@@ -8,15 +8,37 @@ body {
     background-image: url('Wallpapers/profilewall.gif');
     margin: 0;
     padding: 0;
-    height: 130vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.back-btn {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background-color: white;
+    color: darkcyan;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+    .back-btn:hover {
+        background-color: orange;
+    }
+
+.back-to-home {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
 .feedback-container {
     width: 100%;
-    max-width: 600px;
+    min-width: 1000px;
     background-color: #ffffff;
     padding: 30px;
     border: 1px solid #ced4da;

@@ -35,19 +35,34 @@
 </head>
 <body>
     <form id="form1" runat="server">
+
+            <asp:SiteMapDataSource 
+            ID="SiteMapDataSource1" 
+            runat="server" 
+            ShowStartingNode="false" 
+            SiteMapProvider="XmlSiteMapProvider" />
+
         <div class="container">
             <div class="checkout-layout">
                 <!-- Left Section -->
                 <div class="left-section">
-                    <h3>Your Order</h3>
+
+                        <div class="breadcrumb-container">
+                            <asp:SiteMapPath ID="siteMapPath" runat="server" DataSourceID="SiteMapDataSource1" PathSeparator=">">
+                                <CurrentNodeStyle CssClass="breadcrumb-current" />
+                                <NodeStyle CssClass="breadcrumb-node" />
+                                <RootNodeStyle CssClass="breadcrumb-root" />
+                            </asp:SiteMapPath>
+                        </div>
+
                     <div class="order-summary">
                         <asp:GridView ID="gvOrderSummary" runat="server" AutoGenerateColumns="false" 
                             CssClass="order-grid" GridLines="None">
                             <Columns>
-                                <asp:TemplateField HeaderText="Product Name">
+                                <asp:TemplateField HeaderText="Books">
                                     <ItemTemplate>
                                         <asp:Image ID="imgProduct" runat="server" ImageUrl='<%# Eval("ImageUrl") %>' 
-                            Width="80" Height="80" />
+                            Width="120" Height="160" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="Title" HeaderText="Title" />

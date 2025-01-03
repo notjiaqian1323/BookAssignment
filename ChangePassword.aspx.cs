@@ -47,7 +47,7 @@ namespace OnlineBookStore
                 conn.Open();
 
                 // Check if current password matches the stored password
-                string query = "SELECT Password FROM Users WHERE Id = @UserId";
+                string query = "SELECT Password FROM [User] WHERE Id = @UserId";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@UserId", userId);
@@ -61,7 +61,7 @@ namespace OnlineBookStore
                 }
 
                 // Update the password in the database
-                query = "UPDATE Users SET Password = @NewPassword, ModifiedOn = GETDATE() WHERE Id = @UserId";
+                query = "UPDATE [User] SET Password = @NewPassword, ModifiedOn = GETDATE() WHERE Id = @UserId";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@NewPassword", HashPassword(newPassword));

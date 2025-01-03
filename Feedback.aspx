@@ -9,6 +9,12 @@
 <body>
     <form id="form1" runat="server">
         <div class="feedback-container">
+
+            <!-- Back to Home Button -->
+            <div class="back-to-home">
+                <asp:Button ID="btnBackToHome" runat="server" Text="← Back to Homepage" CssClass="back-btn" OnClick="btnBackToHome_Click" />
+            </div>
+
             <h1>Feedback Form</h1>
             <asp:Label ID="lblMessage" runat="server" CssClass="thank-you-message" />
             <label for="txtName">Name:</label>

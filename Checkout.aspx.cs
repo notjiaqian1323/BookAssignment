@@ -266,13 +266,13 @@ namespace OnlineBookStore
         {
             if (string.IsNullOrEmpty(txtDebitUsername.Text))
             {
-                lblErrorMessage.Text = "Please enter your debit card username.";
+                lblErrorMessage.Text = "Please enter your Paypal username.";
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtDebitPassword.Text))
             {
-                lblErrorMessage.Text = "Please enter your debit card password.";
+                lblErrorMessage.Text = "Please enter your Paypal password.";
                 return false;
             }
 

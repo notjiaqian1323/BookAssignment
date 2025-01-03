@@ -23,15 +23,8 @@
     justify-content: space-around;
     padding: 25px;
     border-radius: 5px;
+    background-color: #263043;
 }
-
-    .card:first-child {
-        background-color: #2962ff;
-    }
-
-    .card:nth-child(2) {
-        background-color: #263043;
-    }
 
 .card-inner {
     display: flex;

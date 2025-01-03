@@ -4,16 +4,18 @@
 	  <siteMapNode url="~/BookCatalog.aspx" title="Book Catalog"  description="Book Catalog">
 		  <siteMapNode url="~/BookDetails.aspx" title="Book details" description="Book details"/>
 	  </siteMapNode>
-	  <siteMapNode url="~/ProfileManagement.aspx" title="My Account"  description="Profile Management">
 		  <siteMapNode url="~/UpdateInfo.aspx" title="Edit Profile" description="Edit Profile"/>
-		  <siteMapNode url="" title="Orders" description="My Orders"/>
+		  <siteMapNode url="~/OrderHistory.aspx" title="Order History" description="My Orders"/>
 		  <siteMapNode url="~/ChangePassword.aspx" title="Account Security" description="Change Password"/>
-		  <siteMapNode url="~/Bookshelf.aspx" title="My Books" description="Purchased Books"/>
-	  </siteMapNode>
+		  <siteMapNode url="~/Bookshelf.aspx" title="My Books" description="Purchased Books">
+			  <siteMapNode url="~/Flipper.aspx" title="Book Reader" description="Reading Book"/>
+		  </siteMapNode>
 	  <siteMapNode url="~/Cart.aspx" title="Cart" description="Cart page">
 		  <siteMapNode url="~/Checkout.aspx" title="Checkout" description="Checkout page" >
 			  <siteMapNode url="PaymentSuccessful.aspx" title="Payment Success" description="Payment Success"/>
 		  </siteMapNode>
 	  </siteMapNode>
+	  <siteMapNode url="~/Feedback.aspx" title="Rating and Feedback" description="Rating and Feedback" />
+	  <siteMapNode url="~/AboutUs.aspx" title="About Mopulah" description="About Us"/>
   </siteMapNode>
 </siteMap>

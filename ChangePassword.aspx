@@ -13,7 +13,22 @@
     <form id="form1" runat="server">
         <Page:Header ID="pgHead" runat="server"/>
 
-        <div>
+                    <asp:SiteMapDataSource 
+            ID="SiteMapDataSource1" 
+            runat="server" 
+            ShowStartingNode="false" 
+            SiteMapProvider="XmlSiteMapProvider" />
+
+                    <div class="breadcrumb-container">
+                        <asp:SiteMapPath ID="siteMapPath" runat="server" DataSourceID="SiteMapDataSource1" PathSeparator=">">
+                            <CurrentNodeStyle CssClass="breadcrumb-current" />
+                            <NodeStyle CssClass="breadcrumb-node" />
+                            <RootNodeStyle CssClass="breadcrumb-root" />
+                        </asp:SiteMapPath>
+                    </div>
+
+        <div class="password-container">
+                    <div class="password">
             <h1>Change Password</h1>
             <asp:Label ID="lblPasswordMessage" runat="server" ForeColor="Green"></asp:Label><br />
             
@@ -27,6 +42,7 @@
             <asp:TextBox ID="txtConfirmPassword" TextMode="Password" runat="server"></asp:TextBox><br />
 
             <asp:Button ID="btnChangePassword" runat="server" Text="Change Password" OnClick="btnChangePassword_Click" />
+        </div>
         </div>
 
         <Page:Footer ID="pgFooter" runat="server"/> 

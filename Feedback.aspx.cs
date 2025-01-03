@@ -11,6 +11,12 @@ namespace OnlineBookstore
             lblMessage.Text = ""; // Clear the thank-you message on page load
         }
 
+        protected void btnBackToHome_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("HomePage.aspx"); // Replace "Home.aspx" with the actual home page URL.
+        }
+
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             string name = txtName.Text.Trim();

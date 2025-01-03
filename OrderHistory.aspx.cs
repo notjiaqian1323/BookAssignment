@@ -18,7 +18,7 @@ namespace OnlineBookStore
             if (Session["UserID"] == null)
             {
                 // 如果用户未登录，重定向到登录页面
-                Response.Redirect("Login.aspx");
+                Response.Redirect("CustomerLogin.aspx");
                 return;
             }
 

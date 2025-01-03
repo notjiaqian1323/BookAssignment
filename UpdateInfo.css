@@ -1,10 +1,17 @@
 ﻿/* General Styles */
 
-.profile {
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    padding: 20px 0;
+}
+
+.profile {
+    width: 400px;
     background: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -82,4 +89,27 @@ label {
     text-align: center;
     color: #28a745;
     font-weight: bold;
+}
+
+.breadcrumb-container {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin: 10px 10px;
+}
+
+    .breadcrumb-container span {
+        margin: 0 5px;
+        color: #999;
+    }
+
+.breadcrumb-root a,
+.breadcrumb-node a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.breadcrumb-current {
+    font-weight: bold;
+    color: #333;
 }
