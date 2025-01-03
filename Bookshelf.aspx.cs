@@ -37,6 +37,7 @@ namespace BookAssignment
                 SELECT b.ImageUrl, b.Title, o.BookID
                 FROM OrderDetails o
                 INNER JOIN Books b ON o.BookID = b.BookId
+                INNER JOIN Orders od ON o.OrderID = od.OrderID
                 WHERE o.UserID = @UserID";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))

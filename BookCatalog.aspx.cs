@@ -105,7 +105,7 @@ namespace OnlineBookstore
             {
                 if (HttpContext.Current.Session["UserId"] == null)
                 {
-                    return "<i class=\"fa-solid fa-circle-xmark\"></i> Please log in first to add to the shopping cart.";
+                    return "<i class=\"fa-solid fa-circle-xmark\"></i> Please log in or register a new account first to add to the shopping cart.";
                 }
 
                 int userId = Convert.ToInt32(HttpContext.Current.Session["UserId"]);

@@ -61,7 +61,7 @@ namespace OnlineBookStore
                 }
 
                 // Update the password in the database
-                query = "UPDATE Users SET Password = @NewPassword WHERE Id = @UserId";
+                query = "UPDATE Users SET Password = @NewPassword, ModifiedOn = GETDATE() WHERE Id = @UserId";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@NewPassword", HashPassword(newPassword));

@@ -63,9 +63,12 @@
 
 .main-cards {
     display:grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 40% 60%;
     gap: 20px;
     margin: 20px 0;
+    height: 250px;
+    overflow: hidden;
+    padding-right: 20px;
 }
 
 .card {
@@ -97,9 +100,11 @@
 
 .charts {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 70% 30%;
     gap: 20px;
     margin-top: 60px;
+    overflow: hidden;
+    padding-right: 20px;
 }
 
 .charts-card {

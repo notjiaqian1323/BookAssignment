@@ -45,8 +45,7 @@
                                     <span class="user-name"><%# Eval("Name") %></span>
                                     <span class="user-email"><%# Eval("Email") %></span>
                                     <span class="user-role"><%# Eval("Role") %></span>
-                                    <button type="button" class="btn-details" data-id='<%# Eval("Id") %>' data-name='<%# Eval("Name") %>' 
-                                        data-email='<%# Eval("Email") %>' data-role='<%# Eval("Role") %>'>View Details</button>
+                                    <button type="button" class="btn-details" onclick="viewCustomerDetails('<%# Eval("Id") %>')">View Details</button>
                                 </div>
                             </div>
                         </ItemTemplate>
@@ -54,16 +53,12 @@
                 </div>
             </div>
        </section>
-                
-        <div class="popup">
-            <button class="close-btn">&times;</button>
-                <h2>User Details</h2>
-                <div id="userDetailsContent">
-                <!-- User details will be injected dynamically -->    
-            </div>    
-        </div>
 
-        <script src="Customers.js"></script>
+        <script>
+            function viewCustomerDetails(userId) {
+                window.location.href = `UserDetails.aspx?UserId=${userId}`;
+            }
+        </script>
         <script src="ProductRedesign.js"></script>
     </form>
 </body>

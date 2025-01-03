@@ -142,6 +142,10 @@
     <Content Include="Admin\Reporting.css" />
     <Content Include="Admin\Reports.aspx" />
     <Content Include="Admin\AdminHeader.ascx" />
+    <Content Include="Admin\Reports.css" />
+    <Content Include="Admin\Reports.js" />
+    <Content Include="Admin\UserDetails.aspx" />
+    <Content Include="Admin\UserDetails.css" />
     <Content Include="App_Data\Books.mdf" />
     <Content Include="App_Data\Books_log.ldf">
       <DependentUpon>Books.mdf</DependentUpon>
@@ -309,6 +313,13 @@
     </Compile>
     <Compile Include="Admin\AdminHeader.ascx.designer.cs">
       <DependentUpon>AdminHeader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UserDetails.aspx.cs">
+      <DependentUpon>UserDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UserDetails.aspx.designer.cs">
+      <DependentUpon>UserDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="BookCatalog.aspx.cs">
       <DependentUpon>BookCatalog.aspx</DependentUpon>

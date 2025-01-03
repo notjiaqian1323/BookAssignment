@@ -55,13 +55,13 @@
 
                     <div class="charts">
                         <div class="charts-card">
-                            <h2 class="chart-title">Top 5 Products</h2>
+                            <h2 class="chart-title">Top 5 genres</h2>
                             <div id="bar-chart"></div>
                         </div>
 
                         <div class="charts-card">
-                            <h2 class="chart-title">Purchases and Sales Orders</h2>
-                            <div id="area-chart"></div>
+                            <h2 class="chart-title">New Users</h2>
+                            <div></div>
                         </div>
                     </div>
             </div>  

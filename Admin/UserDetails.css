@@ -1,0 +1,72 @@
+﻿.order-header, .order-item {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-header {
+    font-weight: bold;
+    background-color: #f7f7f7;
+}
+
+.order-item:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.order-empty {
+    text-align: center;
+    color: #888;
+    margin-top: 10px;
+}
+
+.order-details {
+    margin-top: 30px;
+    max-width: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    min-height: 300px;
+    border-radius: 10px;
+    min-width: 80%;
+}
+
+.user-details h2 {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.user-details p {
+    font-size: 16px;
+    color: #555;
+}
+
+.user-details span {
+    font-weight: bold;
+    color: #000;
+}
+
+.main-container {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+}
+
+.customer-details {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #ddd;
+    padding: 10px 20px 50px 20px;
+    border-radius: 10px;
+    max-width: 100%;
+    min-width: 80%;
+    background-color: #fff;
+    color: black;
+}
